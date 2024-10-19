@@ -13,3 +13,4 @@ Skill-up with real-world projects
 5. https://roadmap.sh/projects/testimonial-cards
 6. https://roadmap.sh/projects/datepicker-ui
 7. https://roadmap.sh/projects/accessible-form-ui
+8. https://roadmap.sh/projects/image-grid
