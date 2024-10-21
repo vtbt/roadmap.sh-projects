@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+
+    <title>Tabs</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="tabs">
+            <button id="defaultOpen" class="tab-link" onclick="openPage(event,'Home')">Home</button>
+            <button class="tab-link" onclick="openPage(event,'News')">News</button>
+            <button class="tab-link" onclick="openPage(event,'Contact')">Contact</button>
+            <button class="tab-link" onclick="openPage(event,'About')">About</button>
+        </div>
+        <div id="Home" class="tab-content">
+            <h3>Home</h3>
+            <p>Home is where the heart is..</p>
+        </div>
+
+        <div id="News" class="tab-content">
+            <h3>News</h3>
+            <p>Some news this fine day!</p>
+        </div>
+
+        <div id="Contact" class="tab-content">
+            <h3>Contact</h3>
+            <p>Get in touch, or swing by for a cup of coffee.</p>
+        </div>
+
+        <div id="About" class="tab-content">
+            <h3>About</h3>
+            <p>Who we are and what we do.</p>
+        </div>
+    </div>
+    <script>
+        // Get the element with id="defaultOpen" and click on it
+        document.getElementById("defaultOpen").click();
+
+        function openPage(event, pageName) {
+            // Declare all variables
+            let i, tabContents, tabLinks;
+
+            // Get all elements with class="tab-content" and hide them
+            tabContents = document.getElementsByClassName("tab-content")
+            for (let index = 0; index < tabContents.length; index++) {
+                tabContents[index].style.display = "none"
+            }
+
+            // Get all elements with class="tab-link" and remove the class "active"
+            tabLinks = document.getElementsByClassName("tab-link")
+            for (let index = 0; index < tabLinks.length; index++) {
+                tabLinks[index].className = tabLinks[index].className.replace("active", "")
+            }
+
+            // Show the specific tab content
+            document.getElementById(pageName).style.display = "block";
+            // Add the class "active" to the button used to open the tab content
+            event.currentTarget.className += " active"
+        }
+    </script>
+</body>
+
+</html>
