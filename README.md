@@ -16,3 +16,4 @@ Skill-up with real-world projects
 8. https://roadmap.sh/projects/image-grid
 9. https://roadmap.sh/projects/tooltip-ui
 10. https://roadmap.sh/projects/simple-tabs
+11. https://roadmap.sh/projects/cookie-consent

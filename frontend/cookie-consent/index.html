@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+
+    <title>Cookie Consent
+    </title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="tabs">
+            <button id="defaultOpen" class="tab-link" onclick="openPage(event,'Home')">Home</button>
+            <button class="tab-link" onclick="openPage(event,'News')">News</button>
+            <button class="tab-link" onclick="openPage(event,'Contact')">Contact</button>
+            <button class="tab-link" onclick="openPage(event,'About')">About</button>
+        </div>
+        <div id="Home" class="tab-content">
+            <h3>Home</h3>
+            <p>Home is where the heart is..</p>
+        </div>
+
+        <div id="News" class="tab-content">
+            <h3>News</h3>
+            <p>Some news this fine day!</p>
+        </div>
+
+        <div id="Contact" class="tab-content">
+            <h3>Contact</h3>
+            <p>Get in touch, or swing by for a cup of coffee.</p>
+        </div>
+
+        <div id="About" class="tab-content">
+            <h3>About</h3>
+            <p>Who we are and what we do.</p>
+        </div>
+    </div>
+    <div id="cookie-consent-popup" class="cookie-consent-popup">
+        <div class="header">
+            <svg xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px" fill="#fff">
+                <path
+                    d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-75 29-147t81-128.5q52-56.5 125-91T475-881q21 0 43 2t45 7q-9 45 6 85t45 66.5q30 26.5 71.5 36.5t85.5-5q-26 59 7.5 113t99.5 56q1 11 1.5 20.5t.5 20.5q0 82-31.5 154.5t-85.5 127q-54 54.5-127 86T480-80Zm-60-480q25 0 42.5-17.5T480-620q0-25-17.5-42.5T420-680q-25 0-42.5 17.5T360-620q0 25 17.5 42.5T420-560Zm-80 200q25 0 42.5-17.5T400-420q0-25-17.5-42.5T340-480q-25 0-42.5 17.5T280-420q0 25 17.5 42.5T340-360Zm260 40q17 0 28.5-11.5T640-360q0-17-11.5-28.5T600-400q-17 0-28.5 11.5T560-360q0 17 11.5 28.5T600-320Z" />
+            </svg>
+            <button onclick="rejectCookies()"><svg xmlns="http://www.w3.org/2000/svg" height="24px"
+                    viewBox="0 -960 960 960" width="24px" fill="#fff">
+                    <path
+                        d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+                </svg></button>
+
+        </div>
+        <p>
+            We use cookies to improve your user experience
+        </p>
+        <button id="accept-cookies" onclick="acceptCoolies()">I like Cookies</button>
+    </div>
+    <script>
+        const cookiesPopup = document.getElementById("cookie-consent-popup")
+        function acceptCoolies() {
+            document.cookie = "CookieBy=ttbvu; max-age="
+                + 60 * 60 * 24;
+            if (document.cookie) {
+                cookiesPopup.classList.add("hide");
+            } else {
+                alert
+                    ("Cookie can't be set! Please" +
+                        " unblock this site from the cookie" +
+                        " setting of your browser.");
+            }
+        }
+        function rejectCookies() {
+            alert(
+                "Cookies rejected. Some functionality may be limited.");
+            cookiesPopup.classList.add("hide");
+        }
+
+        let checkCookie =
+            document.cookie.indexOf("CookieBy=ttbvu");
+        checkCookie !== -1 ? cookiesPopup.classList.add("hide") :
+            cookiesPopup.classList.remove("hide");
+
+
+        // Get the element with id="defaultOpen" and click on it
+        document.getElementById("defaultOpen").click();
+
+        function openPage(event, pageName) {
+            // Declare all variables
+            let i, tabContents, tabLinks;
+
+            // Get all elements with class="tab-content" and hide them
+            tabContents = document.getElementsByClassName("tab-content")
+            for (let index = 0; index < tabContents.length; index++) {
+                tabContents[index].style.display = "none"
+            }
+
+            // Get all elements with class="tab-link" and remove the class "active"
+            tabLinks = document.getElementsByClassName("tab-link")
+            for (let index = 0; index < tabLinks.length; index++) {
+                tabLinks[index].className = tabLinks[index].className.replace("active", "")
+            }
+
+            // Show the specific tab content
+            document.getElementById(pageName).style.display = "block";
+            // Add the class "active" to the button used to open the tab content
+            event.currentTarget.className += " active"
+        }
+    </script>
+</body>
+
+</html>
