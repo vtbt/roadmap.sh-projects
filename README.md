@@ -17,3 +17,4 @@ Skill-up with real-world projects
 9. https://roadmap.sh/projects/tooltip-ui
 10. https://roadmap.sh/projects/simple-tabs
 11. https://roadmap.sh/projects/cookie-consent
+12. https://roadmap.sh/projects/restricted-textarea
