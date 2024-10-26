@@ -1,20 +1,19 @@
-# Age Calculator
+# Flash Cards
 
-Create an age calculator using HTML, CSS, and JavaScript.
+Create a flash card app using JavaScript frameworks.
 
-https://roadmap.sh/projects/age-calculator
+https://roadmap.sh/projects/flash-cards
 
 # Requirements
 
-You are required to develop an age calculator with the following features:
+You are required to develop a flash cards app with the following features:
 
-- A form that allows users to input their birthdate using a JavaScript datepicker (avoid the default HTML date picker)
-- Use the Luxon library to calculate the exact age in years, months, and days
-- Display the result on the same page after the user submits the form
-- Implement basic validation to ensure the birthdate is valid
-- Use simple styling to make the calculator visually appealing and responsive
+- Pre-defined flashcards with questions and answers
+- Progress bar to show the user’s progress
+- Ability to view flashcards one at a time and flip to reveal the answer
+- Simple navigation to cycle through the flashcards
 
 # Goals
 
-- [x] manipulate dates and times in JavaScript using Luxon.
-- [x] handling user input via a datepicker, performing date calculations, and designing a simple user interface.
+- [x] manage state and create reusable components.
+- [x] use any framework of your choice, such as React, Angular, or Vue.js, to build this project.
