@@ -69,6 +69,70 @@ h6 {
 }
 
 body {
-    position: relative;
     height: 100vh;
+    font-size: 16px;
+
+    .container {
+        max-width: 450px;
+        text-align: center;
+        margin: 0 auto;
+
+
+        form {
+            margin: 24px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            gap: 10px;
+            width: 100%;
+
+            button {
+                width: 100%;
+                background-color: #000;
+                color: #fff;
+                border-radius: 8px;
+                padding-top: 8px;
+                padding-bottom: 8px;
+                cursor: pointer;
+
+                &:hover,
+                &:focus {
+                    color: #000;
+                    background-color: #fff;
+                }
+
+                &:focus {
+                    outline: 2px dotted #000;
+                    font-weight: bold;
+                }
+            }
+
+            .date-input {
+                position: relative;
+                width: 100%;
+
+                input {
+                    width: 100%;
+                    padding: 8px;
+                    border-radius: 8px;
+
+                    &:focus {
+                        outline: 2px dotted #000;
+                    }
+                }
+
+                .material-icons {
+                    font-size: 20px;
+                    color: #555;
+                    position: absolute;
+                    right: 10px;
+                    top: 10px;
+                }
+            }
+        }
+
+        .age-result {
+            visibility: hidden;
+        }
+    }
 }

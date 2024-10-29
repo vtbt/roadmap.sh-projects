@@ -1,0 +1,16 @@
+{
+  "name": "age-calculator",
+  "version": "1.0.0",
+  "description": "Create an age calculator using HTML, CSS, and JavaScript.",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "js-datepicker": "^5.18.3",
+    "luxon": "^3.5.0"
+  }
+}
