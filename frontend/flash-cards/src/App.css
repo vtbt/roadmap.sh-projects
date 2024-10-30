@@ -1,0 +1,83 @@
+.flash-cards-container {
+    max-width: 600px;
+    min-width: 600px;
+    display: flex;
+    gap: 16px;
+    display: flex;
+    flex-direction: column;
+
+    h1 {
+        margin: 0;
+    }
+}
+
+.flash-card {
+    background-color: antiquewhite;
+    height: 200px;
+    padding: 24px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.question {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.answer {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.function-bar {
+    background-color: antiquewhite;
+    border-radius: 8px;
+    padding: 8px;
+    display: flex;
+    justify-content: space-between;
+
+    button {
+        background-color: transparent;
+        outline: none;
+        border: none;
+        cursor: pointer;
+    }
+}
+
+.flash-card-content {
+    border: 1px solid #eee;
+    padding: 4px;
+    border-radius: 8px;
+    display: flex;
+    gap: 6px;
+    flex-direction: column;
+}
+
+.progress-bar {
+    border: 1px solid #eee;
+    padding: 4px;
+    border-radius: 8px;
+    position: relative;
+    height: 32px
+}
+
+.quantity {
+    position: absolute;
+    right: 12px;
+    top: 8px;
+}
+
+.percentage {
+    background-color: goldenrod;
+    border-radius: 8px;
+    height: 100%;
+    text-align: center;
+    place-content: center;
+}
+
+.finished {
+    font-size: 28px;
+    font-weight: bolder;
+}
