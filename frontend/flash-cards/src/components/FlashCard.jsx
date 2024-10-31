@@ -1,8 +1,6 @@
 import PropTypes from 'prop-types';
 
 export function FlashCard({ question, answer, isHiddenAnswer }) {
-  console.log({ isHiddenAnswer });
-
   return (
     <div className="flash-card">
       {isHiddenAnswer ? (

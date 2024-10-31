@@ -1,5 +1,5 @@
 import './App.css';
-import { FlashCardContainer } from './components/FlashCardContainer';
+import { FlashCardContainer } from './components';
 
 function App() {
   return <FlashCardContainer />;

@@ -19,19 +19,20 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+    .question {
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    .answer {
+        font-size: 16px;
+        font-weight: 600;
+    }
 }
 
-.question {
-    font-size: 24px;
-    font-weight: bold;
-}
 
-.answer {
-    font-size: 16px;
-    font-weight: 600;
-}
-
-.function-bar {
+.flash-card-controls {
     background-color: antiquewhite;
     border-radius: 8px;
     padding: 8px;
@@ -55,29 +56,30 @@
     flex-direction: column;
 }
 
+
+.finished {
+    font-size: 28px;
+    font-weight: bolder;
+}
+
 .progress-bar {
     border: 1px solid #eee;
     padding: 4px;
     border-radius: 8px;
     position: relative;
-    height: 32px
-}
+    height: 32px;
 
-.quantity {
-    position: absolute;
-    right: 12px;
-    top: 8px;
-}
+    .quantity {
+        position: absolute;
+        right: 12px;
+        top: 8px;
+    }
 
-.percentage {
-    background-color: goldenrod;
-    border-radius: 8px;
-    height: 100%;
-    text-align: center;
-    place-content: center;
-}
-
-.finished {
-    font-size: 28px;
-    font-weight: bolder;
+    .percentage {
+        background-color: goldenrod;
+        border-radius: 8px;
+        height: 100%;
+        text-align: center;
+        place-content: center;
+    }
 }
