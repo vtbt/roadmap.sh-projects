@@ -77,10 +77,10 @@ h6 {
         display: flex;
         align-items: center;
         gap: 10px;
-        justify-content: space-around;
+        justify-content: space-between;
         background-color: transparent;
         border-radius: 10px;
-        padding: 8px;
+        padding: 8px 16px;
         cursor: pointer;
         border-width: 1px;
 
@@ -94,16 +94,32 @@ h6 {
     }
 
     .dropdown-content {
-        display: none;
         margin-top: 10px;
         border: 1px solid#000;
         border-radius: 16px;
         flex-direction: column;
         justify-content: left;
 
+        transform: translateY(-10px);
+        transition: all 0.3s ease;
+        opacity: 0;
+        visibility: hidden;
+
+        &.opened {
+            display: flex;
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
         .dropdown-item {
-            padding: 8px;
+            padding: 16px;
             border-top: 1px solid#000;
+            cursor: pointer;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
 
             &:first-child {
                 border-top: none;
