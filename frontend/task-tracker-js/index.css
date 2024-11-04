@@ -67,3 +67,68 @@ h6 {
 #__next {
     isolation: isolate;
 }
+
+.task-tracker {
+    width: 600px;
+
+    .task-input {
+        position: relative;
+        width: 100%;
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        button {
+            background-color: #000;
+            color: #fff;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+            border-radius: 8px;
+            padding: 4px 8px;
+        }
+
+        margin-bottom: 16px;
+    }
+
+
+    .task-item-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+
+        .task-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 4px;
+
+            &.completed {
+                text-decoration: line-through;
+            }
+
+            .task-content {
+                display: flex;
+                gap: 8px;
+                align-items: center;
+
+                p {
+                    white-space: nowrap;
+                    /* Prevents text from wrapping */
+                    overflow: hidden;
+                    /* Hides the overflow */
+                    text-overflow: ellipsis;
+                    /* Adds the ellipsis (...) */
+                    width: 550px;
+                    /* Set a fixed width */
+                }
+            }
+        }
+    }
+}
