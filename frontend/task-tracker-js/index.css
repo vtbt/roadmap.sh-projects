@@ -82,6 +82,7 @@ h6 {
         }
 
         button {
+            cursor: pointer;
             background-color: #000;
             color: #fff;
             position: absolute;

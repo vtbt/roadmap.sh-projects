@@ -12,50 +12,15 @@
     <div class="task-tracker">
         <h1>Task Tracker</h1>
         <div class="task-input">
-            <input type="text" placeholder="Start writing and press enter to create task">
-            <button>
+            <input id="taskInput" type="text" placeholder="Start writing and press enter to create task">
+            <button id="addTaskBtn">
                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
                     fill="#FFFFFF">
                     <path d="M360-240 120-480l240-240 56 56-144 144h488v-160h80v240H272l144 144-56 56Z" />
                 </svg>
             </button>
-
-
         </div>
-        <div class="task-item-list">
-
-            <div class="task-item">
-                <div class="task-content">
-                    <svg class="unchecked" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960"
-                        width="24px" fill="#000000">
-                        <path
-                            d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Z" />
-                    </svg>
-                    <p>New task is created and added to the list</p>
-                </div>
-
-                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
-                    fill="#000000">
-                    <path
-                        d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm80-160h80v-360h-80v360Zm160 0h80v-360h-80v360Z" />
-                </svg>
-            </div>
-            <div class="task-item completed">
-                <div class="task-content">
-                    <svg class="checked" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960"
-                        width="24px" fill="#000000">
-                        <path
-                            d="m424-312 282-282-56-56-226 226-114-114-56 56 170 170ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z" />
-                    </svg>
-                    <p>New task is created and added to the list New task is created and added to the list</p>
-                </div>
-
-                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
-                    fill="#000000">
-                    <path
-                        d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm80-160h80v-360h-80v360Zm160 0h80v-360h-80v360Z" />
-                </svg>
-            </div>
+        <div id="taskList" class="task-item-list">
         </div>
     </div>
     <script src="./index.js"></script>
