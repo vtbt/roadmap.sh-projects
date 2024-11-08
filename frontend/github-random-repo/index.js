@@ -1,3 +1,4 @@
+const dropdown = document.getElementById('dropdown');
 const dropdownBtn = document.getElementById('dropdown-button');
 const dropdownValue = document.getElementById('dropdown-value');
 const dropdownContent = document.getElementById('dropdown-content');
@@ -41,3 +42,9 @@ function hideDropdown() {
   arrowUp.style.display = 'none';
   arrowDown.style.display = 'block';
 }
+
+window.addEventListener('click', (e) => {
+  if (!dropdown.contains(e.target)) {
+    hideDropdown();
+  }
+});

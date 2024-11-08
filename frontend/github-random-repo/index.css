@@ -75,6 +75,7 @@ h6 {
 
     .dropdown {
         width: 300px;
+        position: relative;
 
         .dropdown-button {
             width: 100%;
@@ -98,6 +99,7 @@ h6 {
         }
 
         .dropdown-content {
+            background-color: #fff;
             margin-top: 10px;
             border: 1px solid#000;
             border-radius: 16px;
@@ -108,8 +110,11 @@ h6 {
             transition: all 0.3s ease;
             opacity: 0;
             visibility: hidden;
+            position: absolute;
+            width: 100%;
 
             &.opened {
+                height: auto;
                 display: flex;
                 transform: translateY(0);
                 opacity: 1;
@@ -178,7 +183,28 @@ h6 {
         .info {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 16px;
+
+            .language,
+            .stars,
+            .forks,
+            .issues {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+
+
+            }
+
+            .language {
+                .icon {
+                    background-color: #000;
+                    border-radius: 50%;
+                    width: 12px;
+                    height: 12px;
+                    display: inline-block;
+                }
+            }
         }
     }
 }
