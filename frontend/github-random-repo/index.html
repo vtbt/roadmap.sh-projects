@@ -12,34 +12,33 @@
 <body>
     <div class="container">
         <h1> GitHub Repository Finder</h1>
+
         <div id="dropdown" class="dropdown">
-            <button id="dropdown-button" class="dropdown-button">
-                <span id="dropdown-value" class="dropdown-value">Select a Language</span>
-                <span id="arrow-down" class="arrow-down">
+            <button id="dropdownButton" class="dropdown-button">
+                <span id="dropdownValue" class="dropdown-value">Select a Language</span>
+                <span id="arrowDown" class="arrow-down">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
                         fill="#000000">
                         <path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z" />
                     </svg>
                 </span>
-                <span id="arrow-up" class="arrow-up">
+                <span id="arrowUp" class="arrow-up">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
                         fill="#000000">
                         <path d="M480-528 296-344l-56-56 240-240 240 240-56 56-184-184Z" />
                     </svg>
                 </span>
             </button>
-
-            <div id="dropdown-content" class="dropdown-content">
-            </div>
+            <div id="dropdownContent" class="dropdown-content"></div>
         </div>
 
         <div id="statusContainer" class="status">
             <p id="statusText">Please select a language</p>
         </div>
+
         <button id="retryBtn" class="retry-btn">Click to retry</button>
 
         <div id="successResult" class="success-result">
-
         </div>
 
     </div>

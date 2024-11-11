@@ -71,6 +71,9 @@ h6 {
 .container {
     font-size: 16px;
     width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
 
     .dropdown {
         width: 300px;
@@ -146,11 +149,11 @@ h6 {
 
         &.error {
             background-color: #f00;
+            color: #fff;
         }
     }
 
     .retry-btn {
-        margin-top: 16px;
         background-color: #f00;
         color: #fff;
         border: none;
@@ -163,18 +166,20 @@ h6 {
 
     .success-result {
         display: none;
+
+        .refresh-btn {
+            margin-top: 16px;
+            background-color: #000;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            width: 100%;
+            padding: 10px;
+            cursor: pointer;
+        }
     }
 
-    .refresh-btn {
-        margin-top: 16px;
-        background-color: #000;
-        color: #fff;
-        border: none;
-        border-radius: 10px;
-        width: 100%;
-        padding: 10px;
-        cursor: pointer;
-    }
+
 
     .repo-card {
         border-radius: 10px;

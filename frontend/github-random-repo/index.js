@@ -1,9 +1,9 @@
 const dropdown = document.getElementById('dropdown');
-const dropdownBtn = document.getElementById('dropdown-button');
-const dropdownValue = document.getElementById('dropdown-value');
-const dropdownContent = document.getElementById('dropdown-content');
-const arrowUp = document.getElementById('arrow-up');
-const arrowDown = document.getElementById('arrow-down');
+const dropdownBtn = document.getElementById('dropdownButton');
+const dropdownValue = document.getElementById('dropdownValue');
+const dropdownContent = document.getElementById('dropdownContent');
+const arrowUp = document.getElementById('arrowUp');
+const arrowDown = document.getElementById('arrowDown');
 
 const statusContainer = document.getElementById('statusContainer');
 const statusText = document.getElementById('statusText');
@@ -124,6 +124,7 @@ setDropdownContent();
 
 const searchRepositories = async (language) => {
   statusText.textContent = LOADING_STATUS_TEXT;
+  statusContainer.classList.remove('error');
 
   successResult.style.display = 'none';
   const url = `https://api.github.com/search/repositories?q=language:${language}`;
@@ -180,7 +181,9 @@ const searchRepositories = async (language) => {
     refreshBtn.classList.add('refresh-btn');
     refreshBtn.id = 'refreshBtn';
     refreshBtn.textContent = 'Refresh';
-    refreshBtn.addEventListener('click', () => editUser(user.id));
+    refreshBtn.addEventListener('click', () =>
+      searchRepositories(searchedLanguage)
+    );
 
     successResult.appendChild(cardDiv);
     successResult.appendChild(refreshBtn);
@@ -196,3 +199,7 @@ const searchRepositories = async (language) => {
 if (searchedLanguage) {
   searchRepositories(searchedLanguage);
 }
+
+retryBtn.addEventListener('click', () => {
+  searchRepositories(searchedLanguage);
+});
