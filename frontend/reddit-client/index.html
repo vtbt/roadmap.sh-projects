@@ -9,6 +9,20 @@
 </head>
 
 <body>
+    <div class="container">
+        <h1>Reddit Subreddit Viewer</h1>
+
+        <div class="controls">
+            <input type="text" id="subredditInput" placeholder="Enter subreddit name">
+            <button id="addLaneBtn">Add Subreddit</button>
+        </div>
+
+        <div id="lanesContainer" class="lanes-container">
+        </div>
+
+        <div id="error" class="hidden error">Invalid subreddit or issue fetching data.</div>
+    </div>
+
     <script src="./index.js"></script>
 </body>
 
