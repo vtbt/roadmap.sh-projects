@@ -1,6 +1,9 @@
 const showPopupBtn = document.getElementById('showPopupBtn');
 const addBtn = document.getElementById('addBtn');
 const input = document.getElementById('input');
+const container = document.getElementById('container');
+
+let data = [];
 
 let enteredValue = '';
 
@@ -14,17 +17,27 @@ showPopupBtn.addEventListener('click', showPopup);
 // Event handler for adding subreddit
 addBtn.addEventListener('click', addSubreddit);
 
+input.addEventListener('keydown', (event) => {
+  if (event.key === 'Enter') {
+    event.preventDefault(); // Prevent default Enter key behavior if needed
+    enteredValue = input.value;
+    addSubreddit(enteredValue);
+    input.value = ''; // Optional: clear input after processing
+    enteredValue = '';
+    popup.style.display = 'none';
+  }
+});
+
 function showPopup() {
   // show popup for user inputs from user
   popup.style.display = 'block';
 }
 
-function addSubreddit() {
+async function addSubreddit() {
   // fetch subreddit with input from user
   console.log('add', input.value);
   enteredValue = input.value;
   if (enteredValue) {
-    //fetch data
     fetchSubredditData(enteredValue);
   }
 }
@@ -58,8 +71,15 @@ const fetchSubredditData = async (subreddit) => {
     // Parse JSON
     const data = await response.json();
 
-    // Clear previous results
-    resultsDiv.innerHTML = '';
+    // Each lane will show the subreddit’s posts, including titles, authors, and vote counts.
+
+    const laneElement = document.createElement('div');
+    const headline = document.createElement('div');
+    headline.innerHTML = `
+                    <h3>r/${subreddit}</h3>
+                   <button id="action">three dots</button>`;
+
+    laneElement.appendChild(headline);
 
     // Extract and display posts
     const posts = data.data.children;
@@ -72,10 +92,12 @@ const fetchSubredditData = async (subreddit) => {
                     <p>Upvotes: ${post.data.ups}</p>
                     <a href="https://reddit.com${post.data.permalink}" target="_blank">View Post</a>
                 `;
-      resultsDiv.appendChild(postElement);
+      laneElement.appendChild(postElement);
+
+      showPopupBtn.insertAdjacentElement('beforebegin', laneElement);
     });
   } catch (error) {
     // Handle errors
-    resultsDiv.innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
+    //   `<p style="color: red;">Error: ${error.message}</p>`;
   }
 };
