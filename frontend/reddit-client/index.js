@@ -5,7 +5,9 @@ const container = document.getElementById('container');
 
 let data = [];
 
-let enteredValue = '';
+const moreVertIcon = `<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-160q-33 0-56.5-23.5T400-240q0-33 23.5-56.5T480-320q33 0 56.5 23.5T560-240q0 33-23.5 56.5T480-160Zm0-240q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm0-240q-33 0-56.5-23.5T400-720q0-33 23.5-56.5T480-800q33 0 56.5 23.5T560-720q0 33-23.5 56.5T480-640Z"/></svg>`;
+
+const voteIcon = `<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-528 296-344l-56-56 240-240 240 240-56 56-184-184Z"/></svg>`;
 
 // Get DOM elements using modern selectors
 const popup = document.querySelector('#popup');
@@ -19,11 +21,8 @@ addBtn.addEventListener('click', addSubreddit);
 
 input.addEventListener('keydown', (event) => {
   if (event.key === 'Enter') {
-    event.preventDefault(); // Prevent default Enter key behavior if needed
-    enteredValue = input.value;
-    addSubreddit(enteredValue);
+    addSubreddit(input.value);
     input.value = ''; // Optional: clear input after processing
-    enteredValue = '';
     popup.style.display = 'none';
   }
 });
@@ -34,12 +33,11 @@ function showPopup() {
 }
 
 async function addSubreddit() {
-  // fetch subreddit with input from user
-  console.log('add', input.value);
-  enteredValue = input.value;
-  if (enteredValue) {
-    fetchSubredditData(enteredValue);
+  if (input.value) {
+    fetchSubredditData(input.value);
   }
+  input.value = '';
+  popup.style.display = 'none';
 }
 
 // Event handler for closing the popup using the (x)
@@ -74,23 +72,33 @@ const fetchSubredditData = async (subreddit) => {
     // Each lane will show the subreddit’s posts, including titles, authors, and vote counts.
 
     const laneElement = document.createElement('div');
+    laneElement.classList.add('lane');
+
     const headline = document.createElement('div');
+    headline.classList.add('headline');
     headline.innerHTML = `
-                    <h3>r/${subreddit}</h3>
-                   <button id="action">three dots</button>`;
+    
+                    <h3>/r/${subreddit}</h3>
+                   <button id="action" class="action-btn">${moreVertIcon}</button>`;
 
     laneElement.appendChild(headline);
 
-    // Extract and display posts
     const posts = data.data.children;
     posts.forEach((post) => {
       const postElement = document.createElement('div');
-      postElement.classList.add('post');
+      postElement.classList.add('post-item');
       postElement.innerHTML = `
-                    <h3>${post.data.title}</h3>
-                    <p>Author: ${post.data.author}</p>
-                    <p>Upvotes: ${post.data.ups}</p>
-                    <a href="https://reddit.com${post.data.permalink}" target="_blank">View Post</a>
+      <div class="vote">
+      <div>
+      ${voteIcon}
+         </div>
+        <p>${post.data.ups}</p>
+      </div>
+      <div>
+      <h3>${post.data.title}</h3>
+        <p>Author: ${post.data.author}</p>
+    </div>
+      
                 `;
       laneElement.appendChild(postElement);
 
@@ -101,3 +109,5 @@ const fetchSubredditData = async (subreddit) => {
     //   `<p style="color: red;">Error: ${error.message}</p>`;
   }
 };
+
+//https://reddit.com${post.data.permalink}
