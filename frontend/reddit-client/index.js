@@ -1,6 +1,8 @@
 const showPopupBtn = document.getElementById('showPopupBtn');
 const addBtn = document.getElementById('addBtn');
+const actionBtn = document.getElementById('actionBtn');
 const input = document.getElementById('input');
+const inputError = document.getElementById('input-error');
 const container = document.getElementById('container');
 
 let data = [];
@@ -21,36 +23,53 @@ addBtn.addEventListener('click', addSubreddit);
 
 input.addEventListener('keydown', (event) => {
   if (event.key === 'Enter') {
-    addSubreddit(input.value);
-    input.value = ''; // Optional: clear input after processing
-    popup.style.display = 'none';
+    addSubreddit();
   }
 });
 
 function showPopup() {
-  // show popup for user inputs from user
   popup.style.display = 'block';
 }
 
 async function addSubreddit() {
-  if (input.value) {
-    fetchSubredditData(input.value);
+  if (!input.value) {
+    // show warning message let user know to input value
+    input.classList.add('error');
+    inputError.style.display = 'block';
+    return;
   }
+
+  fetchSubredditData(input.value);
   input.value = '';
   popup.style.display = 'none';
+  input.classList.remove('error');
+  inputError.style.display = 'none';
 }
 
 // Event handler for closing the popup using the (x)
 closeBtn.addEventListener('click', () => {
   popup.style.display = 'none';
+  input.classList.remove('error');
+  inputError.style.display = 'none';
 });
 
 // Event handler for closing the popup when clicking outside
 window.addEventListener('click', (event) => {
   if (event.target === popup) {
     popup.style.display = 'none';
+    input.classList.remove('error');
+    inputError.style.display = 'none';
   }
 });
+
+function showContextMenu(subreddit) {
+  const dropdownContent = document.getElementById(
+    `dropdownContent-${subreddit}`
+  );
+  console.log(subreddit, dropdownContent);
+
+  dropdownContent.style.display = 'block';
+}
 
 // Fetch subreddit data
 const fetchSubredditData = async (subreddit) => {
@@ -76,10 +95,18 @@ const fetchSubredditData = async (subreddit) => {
 
     const headline = document.createElement('div');
     headline.classList.add('headline');
+
     headline.innerHTML = `
     
                     <h3>/r/${subreddit}</h3>
-                   <button id="action" class="action-btn">${moreVertIcon}</button>`;
+                    <div class="dropdown">
+                    <button id="actionBtn" class="action-btn" data-subreddit="${subreddit}">${moreVertIcon}</button>
+                     <ul id="dropdownContent-${subreddit}" class="dropdown-content">
+    <li tabindex="0">Refresh</li>
+    <li tabindex="0">Delete</li>
+  </ul>
+                    </div>
+                   `;
 
     laneElement.appendChild(headline);
 
@@ -94,9 +121,9 @@ const fetchSubredditData = async (subreddit) => {
          </div>
         <p>${post.data.ups}</p>
       </div>
-      <div>
-      <h3>${post.data.title}</h3>
-        <p>Author: ${post.data.author}</p>
+      <div class="content">
+      <h3 class="title">${post.data.title}</h3>
+        <p class="author">${post.data.author}</p>
     </div>
       
                 `;
@@ -111,3 +138,52 @@ const fetchSubredditData = async (subreddit) => {
 };
 
 //https://reddit.com${post.data.permalink}
+
+// Event Delegation for Dropdown Menus
+document.addEventListener('click', function (event) {
+  // Handle Action Button Clicks
+  const actionBtn = event.target.closest('.action-btn');
+  if (actionBtn) {
+    console.log({ actionBtn });
+
+    const subreddit = actionBtn.getAttribute('data-subreddit');
+    const dropdownContent = document.getElementById(
+      `dropdownContent-${subreddit}`
+    );
+
+    if (dropdownContent) {
+      dropdownContent.style.display =
+        dropdownContent.style.display === 'block' ? 'none' : 'block';
+      event.stopPropagation();
+    }
+  }
+
+  // Close dropdowns when clicking outside
+  const openDropdowns = document.querySelectorAll(
+    '.dropdown-content[style*="display: block"]'
+  );
+  openDropdowns.forEach((dropdown) => {
+    if (!dropdown.closest('.dropdown').contains(event.target)) {
+      dropdown.style.display = 'none';
+    }
+  });
+});
+
+// Blur and Keyboard Event Handling
+document.addEventListener('focusout', function (event) {
+  // Check if the blur is happening outside the entire dropdown
+  const dropdown = event.target.closest('.dropdown');
+  console.log('here');
+
+  if (dropdown) {
+    const dropdownContent = dropdown.querySelector('.dropdown-content');
+
+    dropdownContent.addEventListener('focusout', function (event) {
+      console.log('hereeee', event.relatedTarget, event.currentTarget);
+      if (!dropdownContent.contains(event.relatedTarget)) {
+        console.log('not');
+        dropdownContent.style.display = 'none';
+      }
+    });
+  }
+});
