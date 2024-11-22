@@ -1,6 +1,5 @@
 const showPopupBtn = document.getElementById('showPopupBtn');
 const addBtn = document.getElementById('addBtn');
-const actionBtn = document.getElementById('actionBtn');
 const input = document.getElementById('input');
 const inputError = document.getElementById('input-error');
 const container = document.getElementById('container');
@@ -40,25 +39,26 @@ async function addSubreddit() {
   }
 
   fetchSubredditData(input.value);
-  input.value = '';
-  popup.style.display = 'none';
-  input.classList.remove('error');
-  inputError.style.display = 'none';
+  closePopup();
 }
 
 // Event handler for closing the popup using the (x)
 closeBtn.addEventListener('click', () => {
-  popup.style.display = 'none';
-  input.classList.remove('error');
-  inputError.style.display = 'none';
+  closePopup();
 });
 
 // Event handler for closing the popup when clicking outside
 window.addEventListener('click', (event) => {
   if (event.target === popup) {
-    popup.style.display = 'none';
-    input.classList.remove('error');
-    inputError.style.display = 'none';
+    closePopup();
+  }
+});
+// Event handler for closing the popup when clicking outside
+window.addEventListener('keydown', (event) => {
+  console.log(event.key);
+
+  if (event.key === 'Escape') {
+    closePopup();
   }
 });
 
@@ -91,6 +91,7 @@ const fetchSubredditData = async (subreddit) => {
     // Each lane will show the subreddit’s posts, including titles, authors, and vote counts.
 
     const laneElement = document.createElement('div');
+    laneElement.id = `lane-${subreddit}`;
     laneElement.classList.add('lane');
 
     const headline = document.createElement('div');
@@ -100,10 +101,10 @@ const fetchSubredditData = async (subreddit) => {
     
                     <h3>/r/${subreddit}</h3>
                     <div class="dropdown">
-                    <button id="actionBtn" class="action-btn" data-subreddit="${subreddit}">${moreVertIcon}</button>
+                    <button class="action-btn" data-subreddit="${subreddit}">${moreVertIcon}</button>
                      <ul id="dropdownContent-${subreddit}" class="dropdown-content">
-    <li tabindex="0">Refresh</li>
-    <li tabindex="0">Delete</li>
+    <li tabindex="0" class="refresh-btn" data-subreddit="${subreddit}">Refresh</li>
+    <li tabindex="0" class="delete-btn" data-subreddit="${subreddit}">Delete</li>
   </ul>
                     </div>
                    `;
@@ -167,6 +168,18 @@ document.addEventListener('click', function (event) {
       dropdown.style.display = 'none';
     }
   });
+
+  const refreshBtn = event.target.closest('.refresh-btn');
+  if (refreshBtn) {
+    console.log(refreshBtn.getAttribute('data-subreddit'));
+  }
+  const deleteBtn = event.target.closest('.delete-btn');
+  if (deleteBtn) {
+    console.log(deleteBtn.getAttribute('data-subreddit'));
+    const deletedSubreddit = deleteBtn.getAttribute('data-subreddit');
+    const deletedLane = document.getElementById(`lane-${deletedSubreddit}`);
+    deletedLane.remove();
+  }
 });
 
 // Blur and Keyboard Event Handling
@@ -187,3 +200,10 @@ document.addEventListener('focusout', function (event) {
     });
   }
 });
+
+function closePopup() {
+  input.value = '';
+  popup.style.display = 'none';
+  input.classList.remove('error');
+  inputError.style.display = 'none';
+}
