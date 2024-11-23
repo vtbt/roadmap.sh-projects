@@ -99,46 +99,161 @@ h6 {
     }
 
 
-    /* The Modal (background) */
-    .popup {
-        display: none;
-        /* Hidden by default */
-        position: fixed;
-        /* Stay in place */
-        z-index: 1;
-        /* Sit on top */
-        left: 0;
-        top: 0;
-        width: 100%;
-        /* Full width */
-        height: 100%;
-        /* Full height */
-        overflow: auto;
-        /* Enable scroll if needed */
-        background-color: rgb(0, 0, 0);
-        /* Fallback color */
-        background-color: rgba(0, 0, 0, 0.4);
-        /* Black w/ opacity */
-    }
 
-    /* Modal Content/Box */
+
+    .lane {
+        width: 400px;
+        border-right: 1px solid #000;
+
+        .headline {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px;
+
+            .dropdown {
+                position: relative;
+
+                .action-btn {
+                    cursor: pointer;
+                    background-color: transparent;
+                    border: none;
+                    outline: none;
+                    border-radius: 50%;
+                    width: 32px;
+                    height: 32px;
+                    border: 1px solid #000;
+
+                    &:hover,
+                    &:focus {
+                        border: 1px solid #000;
+                        background-color: #000;
+
+                        svg {
+                            fill: #fff;
+                        }
+                    }
+                }
+
+                .dropdown-content {
+                    display: none;
+                    position: absolute;
+                    right: 0;
+                    background-color: #f9f9f9;
+                    min-width: 160px;
+                    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+                    z-index: 1;
+                    padding: 0;
+                    border: 1px solid #000;
+                    border-radius: 10px;
+                    list-style: none;
+
+                    li {
+                        padding: 8px 16px;
+                        cursor: pointer;
+                        outline: none;
+
+                        &:hover,
+                        &:focus {
+                            background-color: #000;
+                            color: #fff;
+                        }
+
+                        &:first-child {
+                            border-bottom: 1px solid #000;
+                            border-top-left-radius: 10px;
+                            border-top-right-radius: 10px;
+                        }
+
+                        &:last-child {
+                            border-bottom-left-radius: 10px;
+                            border-bottom-right-radius: 10px;
+                        }
+                    }
+                }
+            }
+        }
+
+        .post-item {
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            border-bottom: 1px solid #000;
+            padding: 8px 24px;
+            width: 100%;
+
+            &:last-child {
+                border-bottom: none
+            }
+
+            .content {
+                width: 100%;
+
+                .title {
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+            }
+        }
+    }
+}
+
+.popup {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    align-items: center;
+    justify-content: center;
+
     .popup-content {
         display: flex;
         flex-direction: column;
         gap: 16px;
         background-color: #fefefe;
-        margin: 15% auto;
-        /* 15% from the top and centered */
+        margin: auto;
         padding: 20px;
         border: 1px solid #888;
         width: 400px;
         border-radius: 10px;
 
-        /* Could be more or less, depending on screen size */
+        .close-btn {
+            font-size: 28px;
+            font-weight: bold;
+            text-align: right;
+            display: flex;
+            justify-content: end;
+            background: transparent;
+            width: fit-content;
+            outline: none;
+            border: none;
+            margin-left: auto;
 
+            svg {
+                cursor: pointer;
+                background-color: #fff;
+                border-radius: 50%;
+            }
+
+            &:hover,
+            &:focus {
+                svg {
+                    fill: #fff;
+                    background-color: #000;
+                }
+            }
+        }
 
         .headline {
             font-weight: 600;
+            padding: 0;
         }
 
         .input {
@@ -150,6 +265,12 @@ h6 {
                 border: 1px solid #dc2626;
                 outline: 1px solid #dc2626;
             }
+        }
+
+        .input-error {
+            display: none;
+            color: #dc2626;
+            font-size: 0.875rem;
         }
 
         .add-btn {
@@ -168,127 +289,45 @@ h6 {
                 font-weight: bold;
             }
         }
+    }
+}
 
-        .error-message {
-            display: none;
-            color: #dc2626;
-            /* Red shade for errors */
-            font-size: 0.875rem;
-            /* 14px */
-        }
+.loading {
+    z-index: 10;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    border-radius: 5px;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Spinner Animation */
+.spinner {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #007bff;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
     }
 
-    /* The Close Button */
-    .close-container {
-        font-size: 28px;
-        font-weight: bold;
-        text-align: right;
-        display: flex;
-        justify-content: end;
-
-        svg {
-            cursor: pointer;
-        }
+    100% {
+        transform: rotate(360deg);
     }
-
-    .lane {
-        width: 400px;
-        border-right: 1px solid #000;
-    }
-
-    .headline {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 24px;
-
-        .dropdown {
-            position: relative;
-
-            .action-btn {
-                cursor: pointer;
-                background-color: transparent;
-                border: none;
-                outline: none;
-                border-radius: 50%;
-                width: 32px;
-                height: 32px;
-                border: 1px solid #000;
-
-                &:hover,
-                &:focus {
-                    border: 1px solid #000;
-                    background-color: #000;
-
-                    svg {
-                        fill: #fff;
-                    }
-                }
-            }
-
-            .dropdown-content {
-                display: none;
-                position: absolute;
-                right: 0;
-                background-color: #f9f9f9;
-                min-width: 160px;
-                box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-                z-index: 1;
-                padding: 0;
-                border: 1px solid #000;
-                border-radius: 10px;
-                list-style: none;
-
-                li {
-                    padding: 8px 16px;
-                    cursor: pointer;
-                    outline: none;
-
-                    &:hover,
-                    &:focus {
-                        background-color: #000;
-                        color: #fff;
-                    }
-
-                    &:first-child {
-                        border-bottom: 1px solid #000;
-                        border-top-left-radius: 10px;
-                        border-top-right-radius: 10px;
-                    }
-
-                    &:last-child {
-                        border-bottom-left-radius: 10px;
-                        border-bottom-right-radius: 10px;
-                    }
-                }
-            }
-        }
-    }
-
-
-    .post-item {
-        cursor: pointer;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 16px;
-        border-bottom: 1px solid #000;
-        padding: 8px 24px;
-        width: 100%;
-
-        &:last-child {
-            border-bottom: none
-        }
-
-        .content {
-            width: 100%;
-
-            .title {
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-            }
-        }
-    }
-
 }
