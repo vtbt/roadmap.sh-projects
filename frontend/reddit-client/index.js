@@ -209,14 +209,19 @@ async function refreshLane(subreddit, laneElement) {
 // Function to add a new lane
 function addLane() {
   const subreddit = input.value.trim();
-  if (subreddit && !lanes.includes(subreddit)) {
-    lanes.push(subreddit);
-    updateLocalStorage();
-    renderLane(subreddit);
-    closePopup();
-  } else {
-    alert('Subreddit is either empty or already added!');
+  if (!subreddit) {
+    input.classList.add('error');
+    inputError.style.display = 'block';
+    return;
   }
+  if (lanes.includes(subreddit)) {
+    alert('Subreddit is either empty or already added!');
+    return;
+  }
+  lanes.push(subreddit);
+  updateLocalStorage();
+  renderLane(subreddit);
+  closePopup();
 }
 
 // Function to remove a lane
