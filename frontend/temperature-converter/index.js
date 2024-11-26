@@ -43,8 +43,68 @@ function hideDropdown() {
 }
 
 const temperatureInput = document.getElementById('temperatureInput');
-const convertBtn = document.getElementById('convertBtn');
-convertBtn.addEventListener('click', convertTemperature);
-function convertTemperature(params) {
+temperatureInput.addEventListener('input', onInput);
+function onInput(event) {
   console.log(temperatureInput.value);
+  validateConvertBtn();
+}
+const convertBtn = document.getElementById('convertBtn');
+convertBtn.addEventListener('click', onClick);
+
+function onClick(params) {
+  console.log(temperatureInput.value);
+  //   validate
+
+  //   const result = convertTemperature(temperatureInput.value, fromUnit, toUnit);
+  //   console.log({ result });
+}
+
+function convertTemperature(inputValue, fromUnit, toUnit) {
+  let result;
+
+  // Convert input to Celsius first
+  let celsius;
+  switch (fromUnit) {
+    case 'C':
+      celsius = inputValue;
+      break;
+    case 'F':
+      celsius = ((inputValue - 32) * 5) / 9;
+      break;
+    case 'K':
+      celsius = inputValue - 273.15;
+      break;
+    default:
+      return 'Invalid from unit! Use "C", "F", or "K".';
+  }
+
+  // Convert from Celsius to the desired unit
+  switch (toUnit) {
+    case 'C':
+      result = celsius;
+      break;
+    case 'F':
+      result = (celsius * 9) / 5 + 32;
+      break;
+    case 'K':
+      result = celsius + 273.15;
+      break;
+    default:
+      return 'Invalid to unit! Use "C", "F", or "K".';
+  }
+
+  return `${inputValue}°${fromUnit} = ${result.toFixed(2)}°${toUnit}`;
+}
+
+// Example usage:
+console.log(convertTemperature(34, 'C', 'F')); // Output: 34°C = 93.20°F
+console.log(convertTemperature(93.2, 'F', 'K')); // Output: 93.2°F = 307.15°K
+console.log(convertTemperature(307.15, 'K', 'C')); // Output: 307.15°K = 34.00°C
+
+function validateConvertBtn(params) {
+  if (temperatureInput.value) {
+    convertBtn.disabled = false;
+  } else {
+    convertBtn.disabled = true;
+  }
 }

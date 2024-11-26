@@ -14,7 +14,7 @@
         <p>Enter the temperature, select units and submit</p>
         <div class="content">
 
-            <input id="temperatureInput" type="" placeholder="0.00">
+            <input id="temperatureInput" type="" placeholder="0.00" required aria-required="true">
             <div class="custom-dropdown">
                 <button id="dropdown-button" class="dropdown-button">
                     <span id="dropdown-value" class="dropdown-value">From Unit</span>
@@ -33,18 +33,23 @@
                 </button>
                 <div id="dropdown-content" class="dropdown-content">
                     <div class="dropdown-item">
-                        First Item
+                        Celsius (°C)
                     </div>
-                    <div class="dropdown-item">Second Item</div>
-                    <div class="dropdown-item">Third Item</div>
+                    <div class="dropdown-item">
+                        Fahrenheit (°F)
+                    </div>
+                    <div class="dropdown-item">
+                        Kelvin (K)
+                    </div>
+
                 </div>
             </div>
 
-            <button id="convertBtn" class="convert-btn">Convert</button>
+            <button id="convertBtn" class="convert-btn" disabled>Convert</button>
         </div>
-        <div class="result">
-            <p></p>
-        </div>
+
+        <div class="result" id="result" aria-live="polite"></div>
+        <div class="error" id="error" aria-live="assertive"></div>
     </div>
     <script src="./index.js"></script>
 </body>
