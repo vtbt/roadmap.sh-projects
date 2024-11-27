@@ -1,8 +1,8 @@
-const dropdownBtn = document.getElementById('dropdown-button');
-const dropdownValue = document.getElementById('dropdown-value');
-const dropdownContent = document.getElementById('dropdown-content');
-const arrowUp = document.getElementById('arrow-up');
-const arrowDown = document.getElementById('arrow-down');
+// const dropdownBtn = document.getElementById('dropdown-button');
+// const dropdownValue = document.getElementById('dropdown-value');
+// const dropdownContent = document.getElementById('dropdown-content');
+// const arrowUp = document.getElementById('arrow-up');
+// const arrowDown = document.getElementById('arrow-down');
 
 const svgSelectedIcon = `
     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
@@ -12,35 +12,36 @@ const svgSelectedIcon = `
                 </svg>
 `;
 
-dropdownBtn.addEventListener('click', function () {
-  if (dropdownContent.classList.contains('opened')) {
-    hideDropdown();
-    return;
-  }
-  showDropdown();
-});
+// dropdownBtn.addEventListener('click', function () {
+//   if (dropdownContent.classList.contains('opened')) {
+//     hideDropdown();
+//     return;
+//   }
+//   showDropdown();
+// });
 
-dropdownContent.addEventListener('click', function (event) {
-  const selectedSvgIcons = dropdownContent.querySelectorAll('svg');
-  selectedSvgIcons.forEach((e) => e.remove());
+// dropdownContent.addEventListener('click', function (event) {
+//   const selectedSvgIcons = dropdownContent.querySelectorAll('svg');
+//   selectedSvgIcons.forEach((e) => e.remove());
 
-  event.target.classList.add('selected');
-  event.target.insertAdjacentHTML('beforeend', svgSelectedIcon);
-  dropdownValue.textContent = event.target.textContent;
+//   event.target.classList.add('selected');
+//   event.target.insertAdjacentHTML('beforeend', svgSelectedIcon);
+//   dropdownValue.textContent = event.target.textContent;
 
-  hideDropdown();
-});
+//   hideDropdown();
+// });
 
-function showDropdown() {
-  dropdownContent.classList.add('opened');
-  arrowDown.style.display = 'none';
-  arrowUp.style.display = 'block';
-}
-function hideDropdown() {
-  dropdownContent.classList.remove('opened');
-  arrowUp.style.display = 'none';
-  arrowDown.style.display = 'block';
-}
+// function showDropdown() {
+//   dropdownContent.classList.add('opened');
+//   arrowDown.style.display = 'none';
+//   arrowUp.style.display = 'block';
+// }
+
+// function hideDropdown() {
+//   dropdownContent.classList.remove('opened');
+//   arrowUp.style.display = 'none';
+//   arrowDown.style.display = 'block';
+// }
 
 const temperatureInput = document.getElementById('temperatureInput');
 temperatureInput.addEventListener('input', onInput);
@@ -108,3 +109,90 @@ function validateConvertBtn(params) {
     convertBtn.disabled = true;
   }
 }
+
+class Dropdown {
+  constructor(selector) {
+    this.dropdown = document.querySelector(selector);
+    this.button = this.dropdown.querySelector('.dropdown-button');
+    this.menu = this.dropdown.querySelector('.dropdown-content');
+    this.dropdownValue = this.dropdown.querySelector('.dropdown-value');
+    this.arrowUp = this.dropdown.querySelector('.arrow-up');
+    this.arrowDown = this.dropdown.querySelector('.arrow-down');
+    this.init();
+  }
+
+  init() {
+    // Toggle dropdown when button is clicked
+    this.button.addEventListener('click', (e) => {
+      e.stopPropagation(); // Prevent event bubbling
+      this.closeOtherDropdowns(); // Close other dropdowns
+      this.toggleMenu();
+    });
+
+    // Close dropdown if clicked outside
+    document.addEventListener('click', (e) => {
+      console.log(e.target);
+
+      if (!this.dropdown.contains(e.target)) {
+        this.closeMenu();
+      }
+    });
+
+    // Handle item selection
+    this.menu.querySelectorAll('li').forEach((item) => {
+      item.addEventListener('click', () => {
+        this.selectItem(item);
+      });
+    });
+  }
+
+  toggleMenu() {
+    if (this.menu.classList.contains('opened')) {
+      this.closeMenu();
+    } else {
+      this.openMenu();
+    }
+  }
+
+  closeOtherDropdowns() {
+    document.querySelectorAll('.dropdown-content').forEach((otherMenu) => {
+      if (otherMenu !== this.menu) {
+        otherMenu.classList.remove('opened');
+      }
+    });
+    document.querySelectorAll('.arrow-up').forEach((otherArrowUp) => {
+      console.log('here');
+
+      if (otherArrowUp !== this.arrowUp) {
+        otherArrowUp.style.display = 'none';
+      }
+    });
+    document.querySelectorAll('.arrow-down').forEach((otherArrowDown) => {
+      if (otherArrowDown !== this.arrowDown) {
+        otherArrowDown.style.display = 'block';
+      }
+    });
+  }
+
+  closeMenu() {
+    this.menu.classList.remove('opened');
+    this.arrowDown.style.display = 'block';
+    this.arrowUp.style.display = 'none';
+  }
+  openMenu() {
+    this.menu.classList.add('opened');
+    this.arrowDown.style.display = 'none';
+    this.arrowUp.style.display = 'block';
+  }
+
+  selectItem(item) {
+    this.dropdownValue.textContent = item.textContent; // Update selected dropdown value text
+    this.closeMenu();
+  }
+}
+
+// Initialize multiple dropdowns
+document.addEventListener('DOMContentLoaded', () => {
+  new Dropdown('#fromUnitDropdown');
+  new Dropdown('#toUnitDropdown');
+});

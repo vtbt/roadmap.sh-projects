@@ -15,34 +15,64 @@
         <div class="content">
 
             <input id="temperatureInput" type="" placeholder="0.00" required aria-required="true">
-            <div class="custom-dropdown">
+
+            <div id="fromUnitDropdown" class="custom-dropdown">
                 <button id="dropdown-button" class="dropdown-button">
                     <span id="dropdown-value" class="dropdown-value">From Unit</span>
-                    <span id="arrow-down" class="arrow-down">
+                    <span id="arrow-down-1" class="arrow-down">
                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
                             fill="#000000">
                             <path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z" />
                         </svg>
                     </span>
-                    <span id="arrow-up" class="arrow-up">
+                    <span id="arrow-up-1" class="arrow-up">
                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
                             fill="#000000">
                             <path d="M480-528 296-344l-56-56 240-240 240 240-56 56-184-184Z" />
                         </svg>
                     </span>
                 </button>
-                <div id="dropdown-content" class="dropdown-content">
-                    <div class="dropdown-item">
+                <ul id="dropdown-content" class="dropdown-content">
+                    <li class="dropdown-item">
                         Celsius (°C)
-                    </div>
-                    <div class="dropdown-item">
+                    </li>
+                    <li class="dropdown-item">
                         Fahrenheit (°F)
-                    </div>
-                    <div class="dropdown-item">
+                    </li>
+                    <li class="dropdown-item">
                         Kelvin (K)
-                    </div>
+                    </li>
 
-                </div>
+                </ul>
+            </div>
+            <div id="toUnitDropdown" class="custom-dropdown">
+                <button id="dropdown-button" class="dropdown-button">
+                    <span id="dropdown-value" class="dropdown-value">To Unit</span>
+                    <span id="arrow-down-2" class="arrow-down">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                            fill="#000000">
+                            <path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z" />
+                        </svg>
+                    </span>
+                    <span id="arrow-up-2" class="arrow-up">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                            fill="#000000">
+                            <path d="M480-528 296-344l-56-56 240-240 240 240-56 56-184-184Z" />
+                        </svg>
+                    </span>
+                </button>
+                <ul id="dropdown-content" class="dropdown-content">
+                    <li class="dropdown-item">
+                        Celsius (°C)
+                    </li>
+                    <li class="dropdown-item">
+                        Fahrenheit (°F)
+                    </li>
+                    <li class="dropdown-item">
+                        Kelvin (K)
+                    </li>
+
+                </ul>
             </div>
 
             <button id="convertBtn" class="convert-btn" disabled>Convert</button>
