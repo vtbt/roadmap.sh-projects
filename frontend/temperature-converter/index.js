@@ -6,7 +6,7 @@ const svgSelectedIcon = `
                 </svg>
 `;
 
-// Define the mapping
+// Define the mapping from unit to text
 const unitMap = {
   C: 'Celsius',
   F: 'Fahrenheit',
@@ -32,6 +32,7 @@ const convertBtn = document.getElementById('convertBtn');
 convertBtn.addEventListener('click', onClick);
 
 function validateConvertBtn() {
+  // enable convert button when all 3 fields are filled
   if (
     temperatureInput.value &&
     selectedDropdownValues.fromUnit &&
@@ -43,9 +44,9 @@ function validateConvertBtn() {
   }
 }
 
-function isStrictValidFloat(str) {
+function isStrictValidFloat(numStr) {
   // Regular expression to check for a valid number (integer or float)
-  return /^-?\d+(\.\d+)?$/.test(str.trim());
+  return /^-?\d+(\.\d+)?$/.test(numStr.trim());
 }
 
 function onClick() {
@@ -104,14 +105,18 @@ function convertTemperature(inputValue, fromUnit, toUnit) {
       return 'Invalid to unit! Use "C", "F", or "K".';
   }
 
-  return `${inputValue.toFixed(1)} ${unitMap[fromUnit]} is ${result.toFixed(
-    1
-  )} ${unitMap[toUnit]}`;
+  return `${formatTemperature(inputValue)} ${
+    unitMap[fromUnit]
+  } is ${formatTemperature(result)} ${unitMap[toUnit]}`;
 }
 
+function formatTemperature(temp) {
+  return Number.isInteger(temp) ? `${temp}` : `${temp.toFixed(1)}`;
+}
 class Dropdown {
   constructor(selector) {
     this.dropdown = document.querySelector(selector);
+
     this.button = this.dropdown.querySelector('.dropdown-button');
     this.menu = this.dropdown.querySelector('.dropdown-content');
     this.dropdownValue = this.dropdown.querySelector('.dropdown-value');
@@ -139,6 +144,11 @@ class Dropdown {
     this.menu.querySelectorAll('li').forEach((item) => {
       item.addEventListener('click', () => {
         this.selectItem(item);
+      });
+      item.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+          this.selectItem(item);
+        }
       });
     });
   }

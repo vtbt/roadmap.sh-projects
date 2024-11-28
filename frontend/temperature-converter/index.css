@@ -76,13 +76,14 @@ body {
     display: flex;
     flex-direction: column;
     gap: 24px;
-
-
+    margin: 0 auto;
+    width: fit-content;
 
     .content {
         display: flex;
         gap: 24px;
         align-items: center;
+        flex-wrap: wrap;
 
         input {
             padding: 8px;
@@ -150,6 +151,26 @@ body {
 
                     &:first-child {
                         border-top: none;
+                        border-top-left-radius: 16px;
+                        border-top-right-radius: 16px;
+                    }
+
+                    &:last-child {
+                        border-bottom-left-radius: 16px;
+                        border-bottom-right-radius: 16px;
+                    }
+
+                    &:hover,
+                    &:focus-visible {
+                        outline: none;
+                        background-color: #000;
+                        color: #fff;
+
+                        .selected-icon {
+                            svg {
+                                fill: #fff;
+                            }
+                        }
                     }
                 }
             }
@@ -159,7 +180,7 @@ body {
             background-color: transparent;
             cursor: pointer;
             border-radius: 10px;
-            padding: 12px 24px;
+            padding: 8px 24px;
             background-color: #000;
             color: #fff;
 
