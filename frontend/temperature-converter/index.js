@@ -1,9 +1,3 @@
-// const dropdownBtn = document.getElementById('dropdown-button');
-// const dropdownValue = document.getElementById('dropdown-value');
-// const dropdownContent = document.getElementById('dropdown-content');
-// const arrowUp = document.getElementById('arrow-up');
-// const arrowDown = document.getElementById('arrow-down');
-
 const svgSelectedIcon = `
     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
                     fill="#000000">
@@ -12,52 +6,68 @@ const svgSelectedIcon = `
                 </svg>
 `;
 
-// dropdownBtn.addEventListener('click', function () {
-//   if (dropdownContent.classList.contains('opened')) {
-//     hideDropdown();
-//     return;
-//   }
-//   showDropdown();
-// });
+// Define the mapping
+const unitMap = {
+  C: 'Celsius',
+  F: 'Fahrenheit',
+  K: 'Kelvin',
+};
 
-// dropdownContent.addEventListener('click', function (event) {
-//   const selectedSvgIcons = dropdownContent.querySelectorAll('svg');
-//   selectedSvgIcons.forEach((e) => e.remove());
+let selectedDropdownValues = {
+  fromUnit: null,
+  toUnit: null,
+};
 
-//   event.target.classList.add('selected');
-//   event.target.insertAdjacentHTML('beforeend', svgSelectedIcon);
-//   dropdownValue.textContent = event.target.textContent;
-
-//   hideDropdown();
-// });
-
-// function showDropdown() {
-//   dropdownContent.classList.add('opened');
-//   arrowDown.style.display = 'none';
-//   arrowUp.style.display = 'block';
-// }
-
-// function hideDropdown() {
-//   dropdownContent.classList.remove('opened');
-//   arrowUp.style.display = 'none';
-//   arrowDown.style.display = 'block';
-// }
+const result = document.getElementById('result');
+const error = document.getElementById('error');
 
 const temperatureInput = document.getElementById('temperatureInput');
 temperatureInput.addEventListener('input', onInput);
-function onInput(event) {
-  console.log(temperatureInput.value);
+
+function onInput() {
   validateConvertBtn();
 }
+
 const convertBtn = document.getElementById('convertBtn');
 convertBtn.addEventListener('click', onClick);
 
-function onClick(params) {
-  console.log(temperatureInput.value);
-  //   validate
+function validateConvertBtn() {
+  if (
+    temperatureInput.value &&
+    selectedDropdownValues.fromUnit &&
+    selectedDropdownValues.toUnit
+  ) {
+    convertBtn.disabled = false;
+  } else {
+    convertBtn.disabled = true;
+  }
+}
 
-  //   const result = convertTemperature(temperatureInput.value, fromUnit, toUnit);
-  //   console.log({ result });
+function isStrictValidFloat(str) {
+  // Regular expression to check for a valid number (integer or float)
+  return /^-?\d+(\.\d+)?$/.test(str.trim());
+}
+
+function onClick() {
+  const temperatureInputValue = temperatureInput.value;
+
+  if (!isStrictValidFloat(temperatureInputValue)) {
+    result.style.display = 'none';
+
+    error.style.display = 'block';
+    error.textContent = 'Please enter a valid number for the temperature.';
+    return;
+  }
+
+  const resultText = convertTemperature(
+    parseFloat(temperatureInputValue),
+    selectedDropdownValues.fromUnit,
+    selectedDropdownValues.toUnit
+  );
+  error.style.display = 'none';
+
+  result.textContent = resultText;
+  result.style.display = 'block';
 }
 
 function convertTemperature(inputValue, fromUnit, toUnit) {
@@ -94,20 +104,9 @@ function convertTemperature(inputValue, fromUnit, toUnit) {
       return 'Invalid to unit! Use "C", "F", or "K".';
   }
 
-  return `${inputValue}°${fromUnit} = ${result.toFixed(2)}°${toUnit}`;
-}
-
-// Example usage:
-console.log(convertTemperature(34, 'C', 'F')); // Output: 34°C = 93.20°F
-console.log(convertTemperature(93.2, 'F', 'K')); // Output: 93.2°F = 307.15°K
-console.log(convertTemperature(307.15, 'K', 'C')); // Output: 307.15°K = 34.00°C
-
-function validateConvertBtn(params) {
-  if (temperatureInput.value) {
-    convertBtn.disabled = false;
-  } else {
-    convertBtn.disabled = true;
-  }
+  return `${inputValue.toFixed(1)} ${unitMap[fromUnit]} is ${result.toFixed(
+    1
+  )} ${unitMap[toUnit]}`;
 }
 
 class Dropdown {
@@ -131,8 +130,6 @@ class Dropdown {
 
     // Close dropdown if clicked outside
     document.addEventListener('click', (e) => {
-      console.log(e.target);
-
       if (!this.dropdown.contains(e.target)) {
         this.closeMenu();
       }
@@ -161,8 +158,6 @@ class Dropdown {
       }
     });
     document.querySelectorAll('.arrow-up').forEach((otherArrowUp) => {
-      console.log('here');
-
       if (otherArrowUp !== this.arrowUp) {
         otherArrowUp.style.display = 'none';
       }
@@ -188,11 +183,42 @@ class Dropdown {
   selectItem(item) {
     this.dropdownValue.textContent = item.textContent; // Update selected dropdown value text
     this.closeMenu();
+
+    // Add SVG icon to the selected item
+    this.addSelectedIcon(item);
+
+    // Update the selected value in the global object
+    selectedDropdownValues[this.dropdown.id] = item.dataset.value;
+    validateConvertBtn();
+  }
+
+  addSelectedIcon(item) {
+    // Remove existing icons (if any)
+    this.menu.querySelectorAll('li').forEach((li) => {
+      li.classList.remove('selected');
+      const icon = li.querySelector('.selected-icon');
+      if (icon) {
+        icon.remove();
+      }
+    });
+
+    // Add the SVG icon to the selected item
+    const svgIcon = this.createSelectedIcon();
+    item.classList.add('selected'); // Mark item as selected
+    item.appendChild(svgIcon); // Append the icon to the item
+  }
+
+  createSelectedIcon() {
+    // Create the SVG icon (can also be dynamically created based on the item)
+    const svgIcon = document.createElement('span');
+    svgIcon.classList.add('selected-icon');
+    svgIcon.innerHTML = svgSelectedIcon;
+    return svgIcon;
   }
 }
 
 // Initialize multiple dropdowns
 document.addEventListener('DOMContentLoaded', () => {
-  new Dropdown('#fromUnitDropdown');
-  new Dropdown('#toUnitDropdown');
+  new Dropdown('#fromUnit');
+  new Dropdown('#toUnit');
 });

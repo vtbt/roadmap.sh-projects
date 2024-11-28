@@ -13,10 +13,9 @@
         <h1 class="headline">Temperature Converter</h1>
         <p>Enter the temperature, select units and submit</p>
         <div class="content">
-
             <input id="temperatureInput" type="" placeholder="0.00" required aria-required="true">
 
-            <div id="fromUnitDropdown" class="custom-dropdown">
+            <div id="fromUnit" class="custom-dropdown">
                 <button id="dropdown-button" class="dropdown-button">
                     <span id="dropdown-value" class="dropdown-value">From Unit</span>
                     <span id="arrow-down-1" class="arrow-down">
@@ -33,19 +32,19 @@
                     </span>
                 </button>
                 <ul id="dropdown-content" class="dropdown-content">
-                    <li class="dropdown-item">
+                    <li data-value="C"" class=" dropdown-item">
                         Celsius (°C)
                     </li>
-                    <li class="dropdown-item">
+                    <li data-value="F"" class=" dropdown-item">
                         Fahrenheit (°F)
                     </li>
-                    <li class="dropdown-item">
+                    <li data-value="K"" class=" dropdown-item">
                         Kelvin (K)
                     </li>
-
                 </ul>
             </div>
-            <div id="toUnitDropdown" class="custom-dropdown">
+
+            <div id="toUnit" class="custom-dropdown">
                 <button id="dropdown-button" class="dropdown-button">
                     <span id="dropdown-value" class="dropdown-value">To Unit</span>
                     <span id="arrow-down-2" class="arrow-down">
@@ -62,16 +61,15 @@
                     </span>
                 </button>
                 <ul id="dropdown-content" class="dropdown-content">
-                    <li class="dropdown-item">
+                    <li data-value="C"" class=" dropdown-item">
                         Celsius (°C)
                     </li>
-                    <li class="dropdown-item">
+                    <li data-value="F"" class=" dropdown-item">
                         Fahrenheit (°F)
                     </li>
-                    <li class="dropdown-item">
+                    <li data-value="K"" class=" dropdown-item">
                         Kelvin (K)
                     </li>
-
                 </ul>
             </div>
 
