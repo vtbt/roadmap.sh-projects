@@ -20,7 +20,14 @@ dropdownBtn.addEventListener('click', function () {
   showDropdown();
 });
 
-dropdownContent.addEventListener('click', function (event) {
+dropdownContent.addEventListener('click', handleSelectDropdown);
+dropdownContent.addEventListener('keydown', function onKeydown(event) {
+  if (event.key === 'Enter') {
+    handleSelectDropdown(event);
+  }
+});
+
+function handleSelectDropdown(event) {
   const selectedSvgIcons = dropdownContent.querySelectorAll('svg');
   selectedSvgIcons.forEach((e) => e.remove());
 
@@ -29,7 +36,7 @@ dropdownContent.addEventListener('click', function (event) {
   dropdownValue.textContent = event.target.textContent;
 
   hideDropdown();
-});
+}
 
 function showDropdown() {
   dropdownContent.classList.add('opened');

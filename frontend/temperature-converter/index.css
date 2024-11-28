@@ -141,6 +141,7 @@ body {
                 }
 
                 .dropdown-item {
+                    outline: none;
                     padding: 16px;
                     border-top: 1px solid#000;
                     cursor: pointer;
@@ -162,7 +163,6 @@ body {
 
                     &:hover,
                     &:focus-visible {
-                        outline: none;
                         background-color: #000;
                         color: #fff;
 
