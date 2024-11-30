@@ -1,0 +1,27 @@
+.pomodoro {
+
+    .wrapper {
+        padding: 24px 64px;
+        border-radius: 8px;
+        background-color: #a3c8fc;
+        margin: 0 auto;
+        width: 400px;
+        height: 400px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 24px;
+
+        .buttonGroup {
+            display: flex;
+            gap: 16px;
+        }
+
+        .timer {
+            font-size: 80px;
+            font-weight: 900;
+            text-align: center;
+            margin: 0;
+        }
+    }
+}
