@@ -1,6 +1,7 @@
+import { FC } from 'react';
 import styles from './Settings.module.css';
 
-const Settings = () => {
+const Settings: FC = () => {
   return (
     <div className={styles.settings}>
       <div className={styles.wrapper}>
