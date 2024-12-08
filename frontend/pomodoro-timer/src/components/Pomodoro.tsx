@@ -9,6 +9,10 @@ const Pomodoro: FC = () => {
   //   get values from settings
 
   useEffect(() => {
+    setTimeLeft(timerValue * 60);
+  }, [timerValue]);
+
+  useEffect(() => {
     let interval: ReturnType<typeof setInterval> | null = null;
 
     if (isRunning && timeLeft > 0) {

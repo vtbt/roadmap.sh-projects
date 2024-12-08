@@ -8,7 +8,9 @@ function App() {
     <div className="container">
       <Header setIsDisplayedSettings={setIsDisplayedSettings} />
       <Pomodoro />
-      {isDisplayedSettings && <Settings />}
+      {isDisplayedSettings && (
+        <Settings setIsDisplayedSettings={setIsDisplayedSettings} />
+      )}
     </div>
   );
 }
