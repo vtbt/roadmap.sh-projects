@@ -1,10 +1,12 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import styles from './Pomodoro.module.css';
 
 const Pomodoro: FC = () => {
-  const [timerValue, setTimerValue] = useState(25);
+  const [timerValue, setTimerValue] = useState(0.25);
   const [timeLeft, setTimeLeft] = useState(timerValue * 60);
   const [isRunning, setIsRunning] = useState(false);
+
+  const [audio] = useState(() => new Audio('/sounds/timesUp.mp3'));
 
   //   get values from settings
 
@@ -12,24 +14,11 @@ const Pomodoro: FC = () => {
     setTimeLeft(timerValue * 60);
   }, [timerValue]);
 
-  useEffect(() => {
-    let interval: ReturnType<typeof setInterval> | null = null;
-
-    if (isRunning && timeLeft > 0) {
-      interval = setInterval(() => {
-        setTimeLeft((prevTime) => prevTime - 1);
-      }, 1000);
-    } else if (timeLeft === 0) {
-      handleTimerComplete();
-    }
-
-    return () => {
-      if (interval) clearInterval(interval);
-    };
-  }, [isRunning, timeLeft]);
-
-  const handleTimerComplete = () => {
+  const handleTimerComplete = useCallback(() => {
     setIsRunning(false);
+    audio.play().catch((error) => {
+      console.error('Error playing the audio:', error);
+    });
 
     // Determine next mode
     // switch (mode) {
@@ -53,7 +42,23 @@ const Pomodoro: FC = () => {
     //     setCompletedCycles(0);
     //     break;
     // }
-  };
+  }, [audio]);
+
+  useEffect(() => {
+    let interval: ReturnType<typeof setInterval> | null = null;
+
+    if (isRunning && timeLeft > 0) {
+      interval = setInterval(() => {
+        setTimeLeft((prevTime) => prevTime - 1);
+      }, 1000);
+    } else if (timeLeft === 0) {
+      handleTimerComplete();
+    }
+
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [handleTimerComplete, isRunning, timeLeft]);
 
   const formatTime = (seconds: number) => {
     const minutes = Math.floor(seconds / 60);
