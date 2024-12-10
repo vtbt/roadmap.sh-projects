@@ -16,12 +16,5 @@
             display: flex;
             gap: 16px;
         }
-
-        .timer {
-            font-size: 80px;
-            font-weight: 900;
-            text-align: center;
-            margin: 0;
-        }
     }
 }
