@@ -6,17 +6,24 @@ import { Settings as SettingsType } from '../types/index';
 import { DEFAULT_SETTINGS } from '../constants';
 
 interface SettingsProps {
+  settings: SettingsType;
+  setSettings(value: SettingsType): void;
   setIsDisplayedSettings: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Settings: FC<SettingsProps> = ({ setIsDisplayedSettings }) => {
+const Settings: FC<SettingsProps> = ({
+  settings,
+  setSettings,
+  setIsDisplayedSettings,
+}) => {
   // Create a ref for the settings container
   const settingsRef = useRef<HTMLDivElement>(null);
 
-  const [settings, setSettings] = useLocalStorage<SettingsType>(
-    'pomodoroSettings',
-    DEFAULT_SETTINGS
-  );
+  //   const [settings, setSettings] = useLocalStorage<SettingsType>(
+  //     'pomodoroSettings',
+  //     DEFAULT_SETTINGS
+  //   );
+
   const [localSettings, setLocalSettings] = useState(settings);
 
   useEffect(() => {

@@ -2,16 +2,13 @@ import { FC, useState } from 'react';
 import styles from './Pomodoro.module.css';
 import TimerDisplay from './TimerDisplay';
 import { SessionType, Settings as SettingsType } from '../types/index';
-import { useLocalStorage } from '../hooks';
-import { DEFAULT_SETTINGS } from '../constants';
 
-const Pomodoro: FC = () => {
+interface PomodoroProps {
+  settings: SettingsType;
+}
+
+const Pomodoro: FC<PomodoroProps> = ({ settings }) => {
   const [audio] = useState(() => new Audio('/sounds/timesUp.mp3'));
-
-  const [settings] = useLocalStorage<SettingsType>(
-    'pomodoroSettings',
-    DEFAULT_SETTINGS
-  );
 
   const [sessionType, setSessionType] = useState<SessionType>('Work');
 
