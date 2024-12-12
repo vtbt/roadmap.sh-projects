@@ -1,107 +1,109 @@
 .settings {
-    background-color: rgba(0, 0, 0, 0.4);
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    width: 100%;
-    height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100vh;
+  z-index: 2147483647;
+  pointer-events: auto;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+  transition: 0.2s ease-in;
+  overflow: hidden scroll;
+  padding: 48px 0px 58px;
+  box-sizing: border-box;
+
+  .wrapper {
+    color: rgb(34, 34, 34);
+    border-radius: 8px;
+    background-color: white;
+    position: relative;
+    max-width: 400px;
+    width: 95%;
     z-index: 2147483647;
-    pointer-events: auto;
-    display: flex;
-    -webkit-box-pack: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    align-items: center;
+    border-top: 1px solid rgb(239, 239, 239);
+    border-bottom: 1px solid rgb(239, 239, 239);
     transition: 0.2s ease-in;
-    overflow: hidden scroll;
-    padding: 48px 0px 58px;
-    box-sizing: border-box;
+    transform: translateY(20px);
+    box-shadow:
+      rgba(0, 0, 0, 0.15) 0px 10px 20px,
+      rgba(0, 0, 0, 0.1) 0px 3px 6px;
+    overflow: hidden;
+    margin: auto;
+    display: block;
+    padding: 24px;
 
-    .wrapper {
-        color: rgb(34, 34, 34);
-        border-radius: 8px;
-        background-color: white;
-        position: relative;
-        max-width: 400px;
-        width: 95%;
-        z-index: 2147483647;
-        border-top: 1px solid rgb(239, 239, 239);
-        border-bottom: 1px solid rgb(239, 239, 239);
-        transition: 0.2s ease-in;
-        transform: translateY(20px);
-        box-shadow: rgba(0, 0, 0, 0.15) 0px 10px 20px, rgba(0, 0, 0, 0.1) 0px 3px 6px;
-        overflow: hidden;
-        margin: auto;
-        display: block;
-        padding: 24px;
+    .header {
+      position: relative;
+      font-size: 24px;
+      font-weight: bold;
 
-        .header {
-            position: relative;
-            font-size: 24px;
-            font-weight: bold;
+      button {
+        position: absolute;
+        right: 0;
 
-            button {
-                position: absolute;
-                right: 0;
-
-                padding: 4px;
-                height: 26px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-        }
-
-        .content {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            gap: 24px;
-
-            .timeValue {
-                border-radius: 6px;
-                background-color: rgb(239, 239, 239);
-                font-size: 16px;
-                padding: 10px;
-                box-shadow: none;
-                border: none;
-                color: rgb(85, 85, 85);
-                width: 100%;
-                box-sizing: border-box;
-            }
-
-            .timeConfig {
-                display: flex;
-                justify-content: space-between;
-                gap: 16px;
-            }
-
-            .timeInput {
-                display: flex;
-                flex-direction: column;
-
-                .timeValue {
-                    border-radius: 6px;
-                    background-color: rgb(239, 239, 239);
-                    font-size: 16px;
-                    padding: 10px;
-                    box-shadow: none;
-                    border: none;
-                    color: rgb(85, 85, 85);
-                    width: 100%;
-                    box-sizing: border-box;
-                }
-            }
-
-            .longBreakInterval {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-
-                input {
-                    width: 80px;
-                }
-            }
-        }
+        padding: 4px;
+        height: 26px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
     }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 24px;
+
+      .timeValue {
+        border-radius: 6px;
+        background-color: rgb(239, 239, 239);
+        font-size: 16px;
+        padding: 10px;
+        box-shadow: none;
+        border: none;
+        color: rgb(85, 85, 85);
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      .timeConfig {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+      }
+
+      .timeInput {
+        display: flex;
+        flex-direction: column;
+
+        .timeValue {
+          border-radius: 6px;
+          background-color: rgb(239, 239, 239);
+          font-size: 16px;
+          padding: 10px;
+          box-shadow: none;
+          border: none;
+          color: rgb(85, 85, 85);
+          width: 100%;
+          box-sizing: border-box;
+        }
+      }
+
+      .longBreakInterval {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        input {
+          width: 80px;
+        }
+      }
+    }
+  }
 }

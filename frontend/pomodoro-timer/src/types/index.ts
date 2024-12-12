@@ -1,7 +1,7 @@
 export interface Settings {
-  workDuration: number;
-  shortBreakDuration: number;
-  longBreakDuration: number;
+  workDuration: number
+  shortBreakDuration: number
+  longBreakDuration: number
 }
 
-export type SessionType = 'Work' | 'Short Break' | 'Long Break';
+export type SessionType = 'Work' | 'Short Break' | 'Long Break'

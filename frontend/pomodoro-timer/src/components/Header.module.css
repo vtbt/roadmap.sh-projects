@@ -1,27 +1,25 @@
 .header {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 24px;
+
+  .logo {
     display: flex;
-    justify-content: space-between;
-    padding: 8px 24px;
+    align-items: center;
+    gap: 8px;
 
-
-    .logo {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-
-
-        span {
-            font-size: 24px;
-            font-weight: 600;
-            color: #4f93fc;
-        }
+    span {
+      font-size: 24px;
+      font-weight: 600;
+      color: #4f93fc;
     }
+  }
 
-    .actions {
-        .settingsBtn {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
+  .actions {
+    .settingsBtn {
+      display: flex;
+      align-items: center;
+      gap: 4px;
     }
+  }
 }
