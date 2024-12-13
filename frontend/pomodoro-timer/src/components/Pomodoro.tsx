@@ -36,9 +36,21 @@ const Pomodoro: FC<PomodoroProps> = ({ settings }) => {
     <div className={styles.pomodoro}>
       <div className={styles.wrapper}>
         <div className={styles.buttonGroup}>
-          <button onClick={() => changeTimerMode('Work')}>Pomodoro</button>
-          <button onClick={() => changeTimerMode('Short Break')}>Short break</button>
-          <button onClick={() => changeTimerMode('Long Break')}>Long break</button>
+          <button className={sessionType === 'Work' ? styles.activeButton : ''} onClick={() => changeTimerMode('Work')}>
+            Pomodoro
+          </button>
+          <button
+            className={sessionType === 'Short Break' ? styles.activeButton : ''}
+            onClick={() => changeTimerMode('Short Break')}
+          >
+            Short break
+          </button>
+          <button
+            className={sessionType === 'Long Break' ? styles.activeButton : ''}
+            onClick={() => changeTimerMode('Long Break')}
+          >
+            Long break
+          </button>
         </div>
         <TimerDisplay
           duration={

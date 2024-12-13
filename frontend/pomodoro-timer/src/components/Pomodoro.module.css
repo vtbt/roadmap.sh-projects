@@ -1,19 +1,35 @@
 .pomodoro {
-  .wrapper {
-    padding: 24px 64px;
-    border-radius: 8px;
-    background-color: #a3c8fc;
-    margin: 0 auto;
-    width: 400px;
-    height: 400px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 24px;
+    .wrapper {
+        padding: 24px 64px;
+        border-radius: 8px;
+        background-color: #a3c8fc;
+        margin: 0 auto;
+        width: 400px;
+        height: 400px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 24px;
 
-    .buttonGroup {
-      display: flex;
-      gap: 16px;
+        .buttonGroup {
+            display: flex;
+            gap: 16px;
+
+            button {
+                background: none;
+                outline: none;
+                border: none;
+
+                &:hover {
+                    outline: none;
+                    border: none;
+                }
+            }
+
+            .activeButton {
+                background-color: #4f93fc;
+            }
+        }
+
     }
-  }
 }

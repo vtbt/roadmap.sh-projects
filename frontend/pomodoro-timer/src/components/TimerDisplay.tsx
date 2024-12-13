@@ -8,10 +8,7 @@ interface TimerDisplayProps {
 }
 
 const TimerDisplay: React.FC<TimerDisplayProps> = ({ duration, onSessionEnd, isTimerRunning }) => {
-  console.log({ duration }, { isTimerRunning })
-
   const [timeLeft, setTimeLeft] = useState(duration * 60)
-  console.log({ timeLeft })
 
   useEffect(() => {
     setTimeLeft(duration * 60)
