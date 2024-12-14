@@ -1,0 +1,19 @@
+ .buttonGroup {
+     display: flex;
+     gap: 16px;
+
+     button {
+         background: none;
+         outline: none;
+         border: none;
+
+         &:hover {
+             outline: none;
+             border: none;
+         }
+     }
+
+     .activeButton {
+         background-color: #4f93fc;
+     }
+ }

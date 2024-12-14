@@ -1,0 +1,39 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 24px;
+
+    .logo {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        span {
+            font-size: 24px;
+            font-weight: 600;
+            color: #4f93fc;
+        }
+    }
+
+    .actions {
+        display: flex;
+
+        .settingsBtn {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .soundToggleBtn {
+            background: none;
+            outline: none;
+            border: none;
+
+            &:hover {
+                background: none;
+                outline: none;
+                border: none;
+            }
+        }
+    }
+}

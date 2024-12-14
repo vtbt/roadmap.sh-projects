@@ -1,7 +1,7 @@
 export interface Settings {
-  workDuration: number
+  pomodoroDuration: number
   shortBreakDuration: number
   longBreakDuration: number
 }
 
-export type SessionType = 'Work' | 'Short Break' | 'Long Break'
+export type TimerMode = 'Pomodoro' | 'Short Break' | 'Long Break'

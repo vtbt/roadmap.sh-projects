@@ -1,5 +1,18 @@
 .container {
-  min-height: 100vh;
-  min-width: 100vw;
-  background-color: #dcecfc;
+    min-height: 100vh;
+    min-width: 100vw;
+    background-color: #dcecfc;
+
+    .pomodoro {
+        padding: 24px 64px;
+        border-radius: 8px;
+        background-color: #a3c8fc;
+        margin: 0 auto;
+        width: 400px;
+        height: 400px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 24px;
+    }
 }

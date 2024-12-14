@@ -1,9 +1,7 @@
 import { FC, useEffect, useRef, useState } from 'react'
 import styles from './Settings.module.css'
 import { CloseIcon } from './CloseIcon'
-import { useLocalStorage } from '../hooks'
-import { Settings as SettingsType } from '../types/index'
-import { DEFAULT_SETTINGS } from '../constants'
+import { Settings as SettingsType } from '../../types/index'
 
 interface SettingsProps {
   settings: SettingsType
@@ -15,12 +13,7 @@ const Settings: FC<SettingsProps> = ({ settings, setSettings, setIsDisplayedSett
   // Create a ref for the settings container
   const settingsRef = useRef<HTMLDivElement>(null)
 
-  //   const [settings, setSettings] = useLocalStorage<SettingsType>(
-  //     'pomodoroSettings',
-  //     DEFAULT_SETTINGS
-  //   );
-
-  const [localSettings, setLocalSettings] = useState(settings)
+  const [localSettings, setLocalSettings] = useState<SettingsType>(settings)
 
   useEffect(() => {
     // Handler to call on mouse click
@@ -75,11 +68,11 @@ const Settings: FC<SettingsProps> = ({ settings, setSettings, setIsDisplayedSett
                 min='0'
                 step='1'
                 className={styles.timeValue}
-                value={localSettings.workDuration}
+                value={localSettings.pomodoroDuration}
                 onChange={(e) =>
                   setLocalSettings({
                     ...localSettings,
-                    workDuration: +e.target.value,
+                    pomodoroDuration: +e.target.value,
                   })
                 }
               />
@@ -124,7 +117,7 @@ const Settings: FC<SettingsProps> = ({ settings, setSettings, setIsDisplayedSett
           </div>
         </div>
         <div>
-          <button disabled={localSettings.workDuration === 0} onClick={handleSave}>
+          <button disabled={localSettings.pomodoroDuration === 0} onClick={handleSave}>
             Save settings
           </button>
         </div>
