@@ -1,13 +1,25 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import './App.css'
 import { Header, Settings, TimerControls, TimerDisplay, TimerModes } from './components'
-import { useLocalStorage } from './hooks'
+import { useLocalStorage, useNotificationPermission } from './hooks'
 import { Settings as SettingsType, TimerMode } from './types/index'
 import { DEFAULT_SETTINGS } from './constants'
 import useSound from 'use-sound'
 import timesUpSfx from '/sounds/timesUp.mp3'
 
 function App() {
+  const { permission, sendNotification } = useNotificationPermission()
+
+  const triggerNotification = useCallback(
+    () =>
+      sendNotification({
+        title: 'On Focus Mode',
+        body: 'Congrats!',
+        icon: '/eye.png',
+      }),
+    [sendNotification]
+  )
+
   const [settings, setSettings] = useLocalStorage<SettingsType>('pomodoroSettings', DEFAULT_SETTINGS)
   const [isDisplayedSettings, setIsDisplayedSettings] = useState(false)
 
@@ -40,6 +52,9 @@ function App() {
       if (secondsLeft === 0) {
         clearInterval(interval)
         setIsTimerRunning(false)
+        if (permission === 'granted') {
+          triggerNotification()
+        }
         setButtonText('Start')
         timesUp()
         switch (timerMode) {
@@ -65,6 +80,8 @@ function App() {
     settings.pomodoroDuration,
     timerMode,
     timesUp,
+    permission,
+    triggerNotification,
   ])
 
   return (
