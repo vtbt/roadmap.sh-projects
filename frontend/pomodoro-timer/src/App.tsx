@@ -11,13 +11,16 @@ function App() {
   const { permission, sendNotification } = useNotificationPermission()
 
   const triggerNotification = useCallback(
-    () =>
-      sendNotification({
-        title: 'On Focus Mode',
-        body: 'Congrats!',
-        icon: '/eye.png',
-      }),
-    [sendNotification]
+    (body: string) => {
+      if (permission === 'granted') {
+        sendNotification({
+          title: 'On Focus Mode',
+          body,
+          icon: '/eye.png',
+        })
+      }
+    },
+    [permission, sendNotification]
   )
 
   const [settings, setSettings] = useLocalStorage<SettingsType>('pomodoroSettings', DEFAULT_SETTINGS)
@@ -52,20 +55,21 @@ function App() {
       if (secondsLeft === 0) {
         clearInterval(interval)
         setIsTimerRunning(false)
-        if (permission === 'granted') {
-          triggerNotification()
-        }
+
         setButtonText('Start')
         timesUp()
         switch (timerMode) {
           case 'Pomodoro':
             setSecondsLeft(settings.pomodoroDuration * 60)
+            triggerNotification('Finish pomodoro session!!!')
             break
           case 'Short Break':
             setSecondsLeft(settings.shortBreakDuration * 60)
+            triggerNotification('Finish short break!!!')
             break
           case 'Long Break':
             setSecondsLeft(settings.longBreakDuration * 60)
+            triggerNotification('Finish long break!!!')
             break
         }
       }
@@ -83,6 +87,20 @@ function App() {
     permission,
     triggerNotification,
   ])
+
+  useEffect(() => {
+    switch (timerMode) {
+      case 'Pomodoro':
+        setSecondsLeft(settings.pomodoroDuration * 60)
+        break
+      case 'Short Break':
+        setSecondsLeft(settings.shortBreakDuration * 60)
+        break
+      case 'Long Break':
+        setSecondsLeft(settings.longBreakDuration * 60)
+        break
+    }
+  }, [settings.longBreakDuration, settings.pomodoroDuration, settings.shortBreakDuration, timerMode])
 
   return (
     <div className='container'>
