@@ -2,6 +2,7 @@ import { FC, useEffect, useRef, useState } from 'react'
 import styles from './Settings.module.css'
 import { CloseIcon } from './CloseIcon'
 import { Settings as SettingsType } from '../../types/index'
+import { ToggleSwitch } from './ToggleSwitch'
 
 interface SettingsProps {
   settings: SettingsType
@@ -111,9 +112,16 @@ const Settings: FC<SettingsProps> = ({ settings, setSettings, setIsDisplayedSett
             </div>
           </div>
 
+          <ToggleSwitch
+            label='Auto start breaks'
+            initialState={false}
+            onToggle={() => {
+              console.log('hello')
+            }}
+          />
           <div className={styles.longBreakInterval}>
             <label className={styles.timeLabel}>Long Break interval</label>
-            <input type='number' min='0' step='1' className={styles.timeValue} value='26' onChange={() => {}} />
+            <input type='number' min='0' step='1' className={styles.timeValue} value='4' onChange={() => {}} />
           </div>
         </div>
         <div>
