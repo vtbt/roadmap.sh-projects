@@ -36,6 +36,8 @@ function App() {
 
   const [buttonText, setButtonText] = useState('Start')
 
+  const [pomodoroCounter, setPomodoroCounter] = useState(0)
+
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60)
     const secs = seconds % 60
@@ -58,17 +60,41 @@ function App() {
 
         setButtonText('Start')
         timesUp()
+        if (timerMode === 'Pomodoro') {
+          setPomodoroCounter((prev) => ++prev)
+        }
+
         switch (timerMode) {
           case 'Pomodoro':
-            setSecondsLeft(settings.pomodoroDuration * 60)
+            if (settings.autoStartBreaks) {
+              if (pomodoroCounter && pomodoroCounter % 2 === 0) {
+                setTimerMode('Long Break')
+                setSecondsLeft(settings.longBreakDuration * 60)
+              } else {
+                setTimerMode('Short Break')
+                setSecondsLeft(settings.shortBreakDuration * 60)
+              }
+            } else {
+              setSecondsLeft(settings.pomodoroDuration * 60)
+            }
             triggerNotification('Finish pomodoro session!!!')
             break
           case 'Short Break':
-            setSecondsLeft(settings.shortBreakDuration * 60)
+            if (settings.autoStartBreaks) {
+              setTimerMode('Pomodoro')
+              setSecondsLeft(settings.pomodoroDuration * 60)
+            } else {
+              setSecondsLeft(settings.shortBreakDuration * 60)
+            }
             triggerNotification('Finish short break!!!')
             break
           case 'Long Break':
-            setSecondsLeft(settings.longBreakDuration * 60)
+            if (settings.autoStartBreaks) {
+              setTimerMode('Pomodoro')
+              setSecondsLeft(settings.pomodoroDuration * 60)
+            } else {
+              setSecondsLeft(settings.longBreakDuration * 60)
+            }
             triggerNotification('Finish long break!!!')
             break
         }
@@ -101,6 +127,8 @@ function App() {
         break
     }
   }, [settings.longBreakDuration, settings.pomodoroDuration, settings.shortBreakDuration, timerMode])
+
+  console.log({ pomodoroCounter })
 
   return (
     <div className='container'>

@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import styles from './ToggleSwitch.module.css'
 
 // Define props interface for the ToggleSwitch component
 interface ToggleSwitchProps {
   /**
    * Initial state of the toggle
-   * @default false
+   * @default true
    */
   initialState?: boolean
 
@@ -20,31 +20,18 @@ interface ToggleSwitchProps {
   label?: string
 
   /**
-   * Disabled state of the toggle
-   * @default false
-   */
-  disabled?: boolean
-
-  /**
    * Custom color for the toggle switch
    * @default blue
    */
   color?: string
 }
 
-export const ToggleSwitch: React.FC<ToggleSwitchProps> = ({
-  initialState = false,
-  onToggle,
-  label,
-  disabled = false,
-}) => {
+export const ToggleSwitch: React.FC<ToggleSwitchProps> = ({ initialState = true, onToggle, label }) => {
   // State to manage toggle
   const [isToggled, setIsToggled] = useState<boolean>(initialState)
 
   // Handle toggle change
   const handleToggle = () => {
-    if (disabled) return
-
     const newToggleState = !isToggled
     setIsToggled(newToggleState)
 
@@ -54,12 +41,14 @@ export const ToggleSwitch: React.FC<ToggleSwitchProps> = ({
     }
   }
 
+  console.log(isToggled)
+
   return (
     <div className={`${styles.container}`}>
       {label && <span className={styles.label}>{label}</span>}
 
       <label className={styles.switch}>
-        <input type='checkbox' />
+        <input type='checkbox' checked={isToggled} onChange={handleToggle} />
         <span className={`${styles.slider} ${styles.round}`}></span>
       </label>
     </div>

@@ -50,13 +50,15 @@ const Settings: FC<SettingsProps> = ({ settings, setSettings, setIsDisplayedSett
     setIsDisplayedSettings(false)
   }
 
+  console.log(localSettings.autoStartBreaks)
+
   return (
     <div className={styles.settings}>
       <div ref={settingsRef} className={styles.wrapper}>
         <div className={styles.header}>
           Settings
-          <button onClick={() => setIsDisplayedSettings(false)}>
-            <CloseIcon />
+          <button className={styles.closeBtn} onClick={() => setIsDisplayedSettings(false)}>
+            <CloseIcon fill='#fff' />
           </button>
         </div>
         <div className={styles.content}>
@@ -114,9 +116,12 @@ const Settings: FC<SettingsProps> = ({ settings, setSettings, setIsDisplayedSett
 
           <ToggleSwitch
             label='Auto start breaks'
-            initialState={false}
-            onToggle={() => {
-              console.log('hello')
+            initialState={localSettings.autoStartBreaks}
+            onToggle={(value) => {
+              setLocalSettings({
+                ...localSettings,
+                autoStartBreaks: value,
+              })
             }}
           />
           <div className={styles.longBreakInterval}>
