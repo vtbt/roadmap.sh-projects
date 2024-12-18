@@ -5,4 +5,5 @@ export const DEFAULT_SETTINGS: SettingsType = {
   shortBreakDuration: 5,
   longBreakDuration: 15,
   autoStartBreaks: true,
+  longBreakInterval: 4,
 }

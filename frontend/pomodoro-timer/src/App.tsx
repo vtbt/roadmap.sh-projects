@@ -60,29 +60,32 @@ function App() {
 
         setButtonText('Start')
         timesUp()
-        if (timerMode === 'Pomodoro') {
-          setPomodoroCounter((prev) => ++prev)
-        }
 
         switch (timerMode) {
-          case 'Pomodoro':
+          case 'Pomodoro': {
+            const newCompletedPomodoros = pomodoroCounter + 1
+            setPomodoroCounter(newCompletedPomodoros)
             if (settings.autoStartBreaks) {
-              if (pomodoroCounter && pomodoroCounter % 2 === 0) {
+              console.log({ newCompletedPomodoros }, newCompletedPomodoros % settings.longBreakInterval)
+              if (newCompletedPomodoros && newCompletedPomodoros % settings.longBreakInterval === 0) {
                 setTimerMode('Long Break')
                 setSecondsLeft(settings.longBreakDuration * 60)
               } else {
                 setTimerMode('Short Break')
                 setSecondsLeft(settings.shortBreakDuration * 60)
               }
+              setIsTimerRunning(true)
             } else {
               setSecondsLeft(settings.pomodoroDuration * 60)
             }
             triggerNotification('Finish pomodoro session!!!')
             break
+          }
           case 'Short Break':
             if (settings.autoStartBreaks) {
               setTimerMode('Pomodoro')
               setSecondsLeft(settings.pomodoroDuration * 60)
+              setIsTimerRunning(true)
             } else {
               setSecondsLeft(settings.shortBreakDuration * 60)
             }
@@ -92,6 +95,7 @@ function App() {
             if (settings.autoStartBreaks) {
               setTimerMode('Pomodoro')
               setSecondsLeft(settings.pomodoroDuration * 60)
+              setIsTimerRunning(true)
             } else {
               setSecondsLeft(settings.longBreakDuration * 60)
             }

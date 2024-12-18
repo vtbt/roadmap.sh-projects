@@ -3,6 +3,7 @@ export interface Settings {
   shortBreakDuration: number
   longBreakDuration: number
   autoStartBreaks: boolean
+  longBreakInterval: number
 }
 
 export type TimerMode = 'Pomodoro' | 'Short Break' | 'Long Break'

@@ -126,7 +126,19 @@ const Settings: FC<SettingsProps> = ({ settings, setSettings, setIsDisplayedSett
           />
           <div className={styles.longBreakInterval}>
             <label className={styles.timeLabel}>Long Break interval</label>
-            <input type='number' min='0' step='1' className={styles.timeValue} value='4' onChange={() => {}} />
+            <input
+              type='number'
+              min='0'
+              step='1'
+              className={styles.timeValue}
+              value={localSettings.longBreakInterval}
+              onChange={(e) =>
+                setLocalSettings({
+                  ...localSettings,
+                  longBreakInterval: +e.target.value,
+                })
+              }
+            />
           </div>
         </div>
         <div>
