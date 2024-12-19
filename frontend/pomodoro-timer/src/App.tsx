@@ -16,7 +16,7 @@ function App() {
         sendNotification({
           title: 'On Focus Mode',
           body,
-          icon: '/eye.png',
+          icon: '/logo.png',
         })
       }
     },
@@ -66,7 +66,6 @@ function App() {
             const newCompletedPomodoros = pomodoroCounter + 1
             setPomodoroCounter(newCompletedPomodoros)
             if (settings.autoStartBreaks) {
-              console.log({ newCompletedPomodoros }, newCompletedPomodoros % settings.longBreakInterval)
               if (newCompletedPomodoros && newCompletedPomodoros % settings.longBreakInterval === 0) {
                 setTimerMode('Long Break')
                 setSecondsLeft(settings.longBreakDuration * 60)
@@ -116,6 +115,9 @@ function App() {
     timesUp,
     permission,
     triggerNotification,
+    settings.autoStartBreaks,
+    settings.longBreakInterval,
+    pomodoroCounter,
   ])
 
   useEffect(() => {
@@ -132,31 +134,30 @@ function App() {
     }
   }, [settings.longBreakDuration, settings.pomodoroDuration, settings.shortBreakDuration, timerMode])
 
-  console.log({ pomodoroCounter })
-
   return (
     <div className='container'>
       <Header setIsDisplayedSettings={setIsDisplayedSettings} volume={volume} setVolume={setVolume} />
-
-      <div className='pomodoro'>
-        <TimerModes
-          timerMode={timerMode}
-          setTimerMode={setTimerMode}
-          volume={volume}
-          setIsTimerRunning={setIsTimerRunning}
-          setButtonText={setButtonText}
-          setSecondsLeft={setSecondsLeft}
-          settings={settings}
-        />
-        <TimerDisplay timeLeft={formatTime(secondsLeft)} />
-        <TimerControls
-          isTimerRunning={isTimerRunning}
-          setIsTimerRunning={setIsTimerRunning}
-          volume={volume}
-          secondsLeft={secondsLeft}
-          buttonText={buttonText}
-          setButtonText={setButtonText}
-        />
+      <div className='content'>
+        <div className='pomodoro'>
+          <TimerModes
+            timerMode={timerMode}
+            setTimerMode={setTimerMode}
+            volume={volume}
+            setIsTimerRunning={setIsTimerRunning}
+            setButtonText={setButtonText}
+            setSecondsLeft={setSecondsLeft}
+            settings={settings}
+          />
+          <TimerDisplay timeLeft={formatTime(secondsLeft)} />
+          <TimerControls
+            isTimerRunning={isTimerRunning}
+            setIsTimerRunning={setIsTimerRunning}
+            volume={volume}
+            secondsLeft={secondsLeft}
+            buttonText={buttonText}
+            setButtonText={setButtonText}
+          />
+        </div>
       </div>
 
       {isDisplayedSettings && (

@@ -12,7 +12,7 @@ const Header: FC<HeaderProps> = ({ setIsDisplayedSettings, volume, setVolume }: 
   return (
     <div className={styles.header}>
       <div className={styles.logo}>
-        <img src='/eye.png' alt='Eyes with love' />
+        <img src='/logo.png' alt='Eyes with love' />
         <span>OnFocusMode</span>
       </div>
       <div className={styles.actions}>

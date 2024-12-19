@@ -17,6 +17,8 @@ const Settings: FC<SettingsProps> = ({ settings, setSettings, setIsDisplayedSett
   const [localSettings, setLocalSettings] = useState<SettingsType>(settings)
 
   useEffect(() => {
+    settingsRef.current?.focus()
+
     // Handler to call on mouse click
     const handleClickOutside = (event: MouseEvent) => {
       // Check if the settings container exists and the click is outside of it
@@ -50,11 +52,9 @@ const Settings: FC<SettingsProps> = ({ settings, setSettings, setIsDisplayedSett
     setIsDisplayedSettings(false)
   }
 
-  console.log(localSettings.autoStartBreaks)
-
   return (
     <div className={styles.settings}>
-      <div ref={settingsRef} className={styles.wrapper}>
+      <div ref={settingsRef} className={styles.wrapper} tabIndex={-1}>
         <div className={styles.header}>
           Settings
           <button className={styles.closeBtn} onClick={() => setIsDisplayedSettings(false)}>

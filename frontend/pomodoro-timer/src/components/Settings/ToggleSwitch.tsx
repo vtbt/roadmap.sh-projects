@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { KeyboardEvent, useState } from 'react'
 import styles from './ToggleSwitch.module.css'
 
 // Define props interface for the ToggleSwitch component
@@ -18,12 +18,6 @@ interface ToggleSwitchProps {
    * Custom label for the toggle switch
    */
   label?: string
-
-  /**
-   * Custom color for the toggle switch
-   * @default blue
-   */
-  color?: string
 }
 
 export const ToggleSwitch: React.FC<ToggleSwitchProps> = ({ initialState = true, onToggle, label }) => {
@@ -41,15 +35,22 @@ export const ToggleSwitch: React.FC<ToggleSwitchProps> = ({ initialState = true,
     }
   }
 
-  console.log(isToggled)
-
   return (
-    <div className={`${styles.container}`}>
+    <div className={styles.container}>
       {label && <span className={styles.label}>{label}</span>}
 
       <label className={styles.switch}>
-        <input type='checkbox' checked={isToggled} onChange={handleToggle} />
-        <span className={`${styles.slider} ${styles.round}`}></span>
+        <input
+          type='checkbox'
+          checked={isToggled}
+          onChange={handleToggle}
+          onKeyDown={(event: KeyboardEvent<HTMLInputElement>) => {
+            if (event.key === 'Space') {
+              handleToggle()
+            }
+          }}
+        />
+        <span className={styles.slider}></span>
       </label>
     </div>
   )

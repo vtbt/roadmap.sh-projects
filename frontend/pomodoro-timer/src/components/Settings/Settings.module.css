@@ -13,9 +13,6 @@
     -webkit-box-align: center;
     align-items: center;
     transition: 0.2s ease-in;
-    overflow: hidden scroll;
-    padding: 48px 0px 58px;
-    box-sizing: border-box;
 
     .wrapper {
         color: rgb(34, 34, 34);

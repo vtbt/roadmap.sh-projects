@@ -1,18 +1,26 @@
 .container {
+    display: flex;
+    flex-direction: column;
     min-height: 100vh;
     min-width: 100vw;
     background-color: #dcecfc;
 
-    .pomodoro {
-        padding: 24px 64px;
-        border-radius: 8px;
-        background-color: #a3c8fc;
-        margin: 0 auto;
-        width: 400px;
-        height: 400px;
+    .content {
+        flex: 1;
         display: flex;
-        flex-direction: column;
+        align-items: center;
         justify-content: center;
-        gap: 24px;
+
+        .pomodoro {
+            padding: 24px 64px;
+            border-radius: 8px;
+            background-color: #a3c8fc;
+            margin: 0 auto;
+            width: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 24px;
+        }
     }
 }
