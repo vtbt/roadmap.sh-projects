@@ -26,7 +26,7 @@ function App() {
   const [settings, setSettings] = useLocalStorage<SettingsType>('pomodoroSettings', DEFAULT_SETTINGS)
   const [isDisplayedSettings, setIsDisplayedSettings] = useState(false)
 
-  const [timerMode, setTimerMode] = useState<TimerMode>('Pomodoro')
+  const [timerMode, setTimerMode] = useState<TimerMode>(TimerMode.POMODORO)
 
   const [isTimerRunning, setIsTimerRunning] = useState(false)
 
@@ -62,15 +62,15 @@ function App() {
         timesUp()
 
         switch (timerMode) {
-          case 'Pomodoro': {
+          case TimerMode.POMODORO: {
             const newCompletedPomodoros = pomodoroCounter + 1
             setPomodoroCounter(newCompletedPomodoros)
             if (settings.autoStartBreaks) {
               if (newCompletedPomodoros && newCompletedPomodoros % settings.longBreakInterval === 0) {
-                setTimerMode('Long Break')
+                setTimerMode(TimerMode.LONG_BREAK)
                 setSecondsLeft(settings.longBreakDuration * 60)
               } else {
-                setTimerMode('Short Break')
+                setTimerMode(TimerMode.SHORT_BREAK)
                 setSecondsLeft(settings.shortBreakDuration * 60)
               }
               setIsTimerRunning(true)
@@ -80,9 +80,9 @@ function App() {
             triggerNotification('Finish pomodoro session!!!')
             break
           }
-          case 'Short Break':
+          case TimerMode.SHORT_BREAK:
             if (settings.autoStartBreaks) {
-              setTimerMode('Pomodoro')
+              setTimerMode(TimerMode.POMODORO)
               setSecondsLeft(settings.pomodoroDuration * 60)
               setIsTimerRunning(true)
             } else {
@@ -90,9 +90,9 @@ function App() {
             }
             triggerNotification('Finish short break!!!')
             break
-          case 'Long Break':
+          case TimerMode.LONG_BREAK:
             if (settings.autoStartBreaks) {
-              setTimerMode('Pomodoro')
+              setTimerMode(TimerMode.POMODORO)
               setSecondsLeft(settings.pomodoroDuration * 60)
               setIsTimerRunning(true)
             } else {
@@ -122,13 +122,13 @@ function App() {
 
   useEffect(() => {
     switch (timerMode) {
-      case 'Pomodoro':
+      case TimerMode.POMODORO:
         setSecondsLeft(settings.pomodoroDuration * 60)
         break
-      case 'Short Break':
+      case TimerMode.SHORT_BREAK:
         setSecondsLeft(settings.shortBreakDuration * 60)
         break
-      case 'Long Break':
+      case TimerMode.LONG_BREAK:
         setSecondsLeft(settings.longBreakDuration * 60)
         break
     }

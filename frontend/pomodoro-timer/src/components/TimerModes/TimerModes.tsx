@@ -31,13 +31,13 @@ const TimerModes: React.FC<TimerModesProps> = ({
     setIsTimerRunning(false)
     setButtonText('Start')
     switch (timerMode) {
-      case 'Pomodoro':
+      case TimerMode.POMODORO:
         setSecondsLeft(settings.pomodoroDuration * 60)
         break
-      case 'Short Break':
+      case TimerMode.SHORT_BREAK:
         setSecondsLeft(settings.shortBreakDuration * 60)
         break
-      case 'Long Break':
+      case TimerMode.LONG_BREAK:
         setSecondsLeft(settings.longBreakDuration * 60)
         break
     }
@@ -46,20 +46,20 @@ const TimerModes: React.FC<TimerModesProps> = ({
   return (
     <div className={styles.buttonGroup}>
       <button
-        className={timerMode === 'Pomodoro' ? styles.activeButton : ''}
-        onClick={() => handleChangeTimerMode('Pomodoro')}
+        className={timerMode === TimerMode.POMODORO ? styles.activeButton : ''}
+        onClick={() => handleChangeTimerMode(TimerMode.POMODORO)}
       >
         Pomodoro
       </button>
       <button
-        className={timerMode === 'Short Break' ? styles.activeButton : ''}
-        onClick={() => handleChangeTimerMode('Short Break')}
+        className={timerMode === TimerMode.SHORT_BREAK ? styles.activeButton : ''}
+        onClick={() => handleChangeTimerMode(TimerMode.SHORT_BREAK)}
       >
         Short break
       </button>
       <button
-        className={timerMode === 'Long Break' ? styles.activeButton : ''}
-        onClick={() => handleChangeTimerMode('Long Break')}
+        className={timerMode === TimerMode.LONG_BREAK ? styles.activeButton : ''}
+        onClick={() => handleChangeTimerMode(TimerMode.LONG_BREAK)}
       >
         Long break
       </button>

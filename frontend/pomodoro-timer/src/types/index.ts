@@ -6,4 +6,8 @@ export interface Settings {
   longBreakInterval: number
 }
 
-export type TimerMode = 'Pomodoro' | 'Short Break' | 'Long Break'
+export enum TimerMode {
+  POMODORO = 'POMODORO',
+  SHORT_BREAK = 'SHORT_BREAK',
+  LONG_BREAK = 'LONG_BREAK',
+}
