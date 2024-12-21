@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import './App.css'
 import { Header, Settings, TimerControls, TimerDisplay, TimerModes } from './components'
 import { useLocalStorage, useNotificationPermission } from './hooks'
-import { Settings as SettingsType, TimerMode } from './types/index'
+import { ButtonText, Settings as SettingsType, TimerMode } from './types/index'
 import { DEFAULT_SETTINGS } from './constants'
 import useSound from 'use-sound'
 import timesUpSfx from '/sounds/timesUp.mp3'
@@ -34,7 +34,7 @@ function App() {
 
   const [secondsLeft, setSecondsLeft] = useState(settings.pomodoroDuration * 60)
 
-  const [buttonText, setButtonText] = useState('Start')
+  const [buttonText, setButtonText] = useState<ButtonText>(ButtonText.START)
 
   const [pomodoroCounter, setPomodoroCounter] = useState(0)
 
@@ -58,7 +58,6 @@ function App() {
         clearInterval(interval)
         setIsTimerRunning(false)
 
-        setButtonText('Start')
         timesUp()
 
         switch (timerMode) {
@@ -66,6 +65,8 @@ function App() {
             const newCompletedPomodoros = pomodoroCounter + 1
             setPomodoroCounter(newCompletedPomodoros)
             if (settings.autoStartBreaks) {
+              setButtonText(ButtonText.PAUSE)
+
               if (newCompletedPomodoros && newCompletedPomodoros % settings.longBreakInterval === 0) {
                 setTimerMode(TimerMode.LONG_BREAK)
                 setSecondsLeft(settings.longBreakDuration * 60)
@@ -76,27 +77,34 @@ function App() {
               setIsTimerRunning(true)
             } else {
               setSecondsLeft(settings.pomodoroDuration * 60)
+              setButtonText(ButtonText.START)
             }
             triggerNotification('Finish pomodoro session!!!')
             break
           }
           case TimerMode.SHORT_BREAK:
             if (settings.autoStartBreaks) {
+              setButtonText(ButtonText.PAUSE)
+
               setTimerMode(TimerMode.POMODORO)
               setSecondsLeft(settings.pomodoroDuration * 60)
               setIsTimerRunning(true)
             } else {
               setSecondsLeft(settings.shortBreakDuration * 60)
+              setButtonText(ButtonText.START)
             }
             triggerNotification('Finish short break!!!')
             break
           case TimerMode.LONG_BREAK:
             if (settings.autoStartBreaks) {
+              setButtonText(ButtonText.PAUSE)
+
               setTimerMode(TimerMode.POMODORO)
               setSecondsLeft(settings.pomodoroDuration * 60)
               setIsTimerRunning(true)
             } else {
               setSecondsLeft(settings.longBreakDuration * 60)
+              setButtonText(ButtonText.START)
             }
             triggerNotification('Finish long break!!!')
             break

@@ -1,6 +1,7 @@
 import useSound from 'use-sound'
 import startSfx from '/sounds/startTimer.mp3'
 import pauseSfx from '/sounds/pauseTimer.mp3'
+import { ButtonText } from '../../types'
 
 interface TimerControlsProps {
   isTimerRunning: boolean
@@ -8,7 +9,7 @@ interface TimerControlsProps {
   secondsLeft: number
   volume: number
   buttonText: string
-  setButtonText: React.Dispatch<React.SetStateAction<string>>
+  setButtonText: React.Dispatch<React.SetStateAction<ButtonText>>
 }
 
 const TimerControls: React.FC<TimerControlsProps> = ({
@@ -39,7 +40,9 @@ const TimerControls: React.FC<TimerControlsProps> = ({
       play()
     }
     setIsTimerRunning(!isTimerRunning)
-    setButtonText(buttonText === 'Start' || buttonText === 'Resume' ? 'Pause' : 'Resume')
+    setButtonText(
+      buttonText === ButtonText.START || buttonText === ButtonText.PAUSE ? ButtonText.PAUSE : ButtonText.RESUME
+    )
   }
 
   return <button onClick={handleClick}>{buttonText}</button>

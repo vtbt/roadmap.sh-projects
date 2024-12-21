@@ -6,6 +6,7 @@
          background: none;
          outline: none;
          border: none;
+         white-space: nowrap;
 
          &:hover {
              outline: none;

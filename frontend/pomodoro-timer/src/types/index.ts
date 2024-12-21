@@ -11,3 +11,9 @@ export enum TimerMode {
   SHORT_BREAK = 'SHORT_BREAK',
   LONG_BREAK = 'LONG_BREAK',
 }
+
+export enum ButtonText {
+  START = 'Start',
+  PAUSE = 'Pause',
+  RESUME = 'Resume',
+}

@@ -1,5 +1,5 @@
 import styles from './TimerModes.module.css'
-import { TimerMode, Settings as SettingsType } from '../../types'
+import { TimerMode, Settings as SettingsType, ButtonText } from '../../types'
 
 import clickSfx from '/sounds/slide.mp3'
 import useSound from 'use-sound'
@@ -9,7 +9,7 @@ interface TimerModesProps {
   setTimerMode: React.Dispatch<React.SetStateAction<TimerMode>>
   volume: number
   setIsTimerRunning: React.Dispatch<React.SetStateAction<boolean>>
-  setButtonText: React.Dispatch<React.SetStateAction<string>>
+  setButtonText: React.Dispatch<React.SetStateAction<ButtonText>>
   setSecondsLeft: React.Dispatch<React.SetStateAction<number>>
   settings: SettingsType
 }
@@ -29,7 +29,7 @@ const TimerModes: React.FC<TimerModesProps> = ({
     playSfx()
     setTimerMode(timerMode)
     setIsTimerRunning(false)
-    setButtonText('Start')
+    setButtonText(ButtonText.START)
     switch (timerMode) {
       case TimerMode.POMODORO:
         setSecondsLeft(settings.pomodoroDuration * 60)
