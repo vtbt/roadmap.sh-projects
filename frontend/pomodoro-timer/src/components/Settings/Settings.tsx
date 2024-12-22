@@ -15,6 +15,7 @@ const Settings: FC<SettingsProps> = ({ settings, setSettings, setIsDisplayedSett
   const settingsRef = useRef<HTMLDivElement>(null)
 
   const [localSettings, setLocalSettings] = useState<SettingsType>(settings)
+  const [isDisabledSaveBtn, setIsDisabledSaveBtn] = useState(false)
 
   useEffect(() => {
     settingsRef.current?.focus()
@@ -52,6 +53,14 @@ const Settings: FC<SettingsProps> = ({ settings, setSettings, setIsDisplayedSett
     setIsDisplayedSettings(false)
   }
 
+  const validateValue = (value: number) => {
+    if (value === 0) {
+      setIsDisabledSaveBtn(true)
+    } else {
+      setIsDisabledSaveBtn(false)
+    }
+  }
+
   return (
     <div className={styles.settings}>
       <div ref={settingsRef} className={styles.wrapper} tabIndex={-1}>
@@ -68,16 +77,17 @@ const Settings: FC<SettingsProps> = ({ settings, setSettings, setIsDisplayedSett
               <label className={styles.timeLabel}>Pomodoro</label>
               <input
                 type='number'
-                min='0'
+                min='5'
                 step='1'
                 className={styles.timeValue}
                 value={localSettings.pomodoroDuration}
-                onChange={(e) =>
+                onChange={(e) => {
+                  validateValue(+e.target.value)
                   setLocalSettings({
                     ...localSettings,
                     pomodoroDuration: +e.target.value,
                   })
-                }
+                }}
               />
             </div>
             <div className={styles.timeInput}>
@@ -88,12 +98,13 @@ const Settings: FC<SettingsProps> = ({ settings, setSettings, setIsDisplayedSett
                 step='1'
                 className={styles.timeValue}
                 value={localSettings.shortBreakDuration}
-                onChange={(e) =>
+                onChange={(e) => {
+                  validateValue(+e.target.value)
                   setLocalSettings({
                     ...localSettings,
                     shortBreakDuration: +e.target.value,
                   })
-                }
+                }}
               />
             </div>
             <div className={styles.timeInput}>
@@ -104,12 +115,13 @@ const Settings: FC<SettingsProps> = ({ settings, setSettings, setIsDisplayedSett
                 step='1'
                 className={styles.timeValue}
                 value={localSettings.longBreakDuration}
-                onChange={(e) =>
+                onChange={(e) => {
+                  validateValue(+e.target.value)
                   setLocalSettings({
                     ...localSettings,
                     longBreakDuration: +e.target.value,
                   })
-                }
+                }}
               />
             </div>
           </div>
@@ -128,21 +140,22 @@ const Settings: FC<SettingsProps> = ({ settings, setSettings, setIsDisplayedSett
             <label className={styles.timeLabel}>Long Break interval</label>
             <input
               type='number'
-              min='0'
+              min='2'
               step='1'
               className={styles.timeValue}
               value={localSettings.longBreakInterval}
-              onChange={(e) =>
+              onChange={(e) => {
+                validateValue(+e.target.value)
                 setLocalSettings({
                   ...localSettings,
                   longBreakInterval: +e.target.value,
                 })
-              }
+              }}
             />
           </div>
         </div>
         <div>
-          <button disabled={localSettings.pomodoroDuration === 0} onClick={handleSave}>
+          <button disabled={isDisabledSaveBtn} onClick={handleSave}>
             Save settings
           </button>
         </div>
