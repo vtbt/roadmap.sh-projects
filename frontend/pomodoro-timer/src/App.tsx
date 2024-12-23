@@ -1,14 +1,14 @@
 import { useCallback, useEffect, useState } from 'react'
 import './App.css'
 import { Header, Settings, TimerControls, TimerDisplay, TimerModes } from './components'
-import { useLocalStorage, useNotificationPermission } from './hooks'
+import { useLocalStorage, useNotification } from './hooks'
 import { ButtonText, Settings as SettingsType, TimerMode } from './types/index'
 import { DEFAULT_SETTINGS } from './constants'
 import useSound from 'use-sound'
 import timesUpSfx from '/sounds/timesUp.mp3'
 
 function App() {
-  const { permission, sendNotification } = useNotificationPermission()
+  const { permission, sendNotification } = useNotification()
 
   const triggerNotification = useCallback(
     (body: string) => {
@@ -24,6 +24,7 @@ function App() {
   )
 
   const [settings, setSettings] = useLocalStorage<SettingsType>('pomodoroSettings', DEFAULT_SETTINGS)
+
   const [isDisplayedSettings, setIsDisplayedSettings] = useState(false)
 
   const [timerMode, setTimerMode] = useState<TimerMode>(TimerMode.POMODORO)
