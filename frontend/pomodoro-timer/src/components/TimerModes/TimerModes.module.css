@@ -1,20 +1,23 @@
- .buttonGroup {
-     display: flex;
-     gap: 16px;
+.container {
+    display: flex;
+    gap: 16px;
 
-     button {
-         background: none;
-         outline: none;
-         border: none;
-         white-space: nowrap;
+    .modeButton {
+        background: none;
+        border: none;
+        outline: none;
+        white-space: nowrap;
+        padding: 8px 16px;
+        border-radius: 4px;
+        transition: background-color 0.2s;
+    }
 
-         &:hover {
-             outline: none;
-             border: none;
-         }
-     }
+    .modeButton:hover {
+        background-color: rgba(79, 147, 252, 0.1);
+    }
 
-     .activeButton {
-         background-color: #4f93fc;
-     }
- }
+    .modeButton.active {
+        background-color: #4f93fc;
+        color: white;
+    }
+}

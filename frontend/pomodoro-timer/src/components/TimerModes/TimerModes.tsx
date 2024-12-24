@@ -3,6 +3,8 @@ import { TimerMode, Settings as SettingsType, ButtonText } from '../../types'
 
 import clickSfx from '/sounds/slide.mp3'
 import useSound from 'use-sound'
+import { useCallback } from 'react'
+import { getDurationFromSettings, TIMER_MODES } from '../../constants'
 
 interface TimerModesProps {
   timerMode: TimerMode
@@ -25,44 +27,31 @@ const TimerModes: React.FC<TimerModesProps> = ({
 }) => {
   const [playSfx] = useSound(clickSfx, { volume })
 
-  const handleChangeTimerMode = (timerMode: TimerMode) => {
-    playSfx()
-    setTimerMode(timerMode)
-    setIsTimerRunning(false)
-    setButtonText(ButtonText.START)
-    switch (timerMode) {
-      case TimerMode.POMODORO:
-        setSecondsLeft(settings.pomodoroDuration * 60)
-        break
-      case TimerMode.SHORT_BREAK:
-        setSecondsLeft(settings.shortBreakDuration * 60)
-        break
-      case TimerMode.LONG_BREAK:
-        setSecondsLeft(settings.longBreakDuration * 60)
-        break
-    }
-  }
+  const handleChangeTimerMode = useCallback(
+    (newTimerMode: TimerMode) => {
+      playSfx()
+      setTimerMode(newTimerMode)
+      setIsTimerRunning(false)
+      setButtonText(ButtonText.START)
+      setSecondsLeft(getDurationFromSettings(newTimerMode, settings) * 60)
+    },
+    [playSfx, setButtonText, setIsTimerRunning, setSecondsLeft, setTimerMode, settings]
+  )
+
+  const getButtonClassName = (mode: TimerMode) => `${styles.modeButton} ${timerMode === mode ? styles.active : ''}`
 
   return (
-    <div className={styles.buttonGroup}>
-      <button
-        className={timerMode === TimerMode.POMODORO ? styles.activeButton : ''}
-        onClick={() => handleChangeTimerMode(TimerMode.POMODORO)}
-      >
-        Pomodoro
-      </button>
-      <button
-        className={timerMode === TimerMode.SHORT_BREAK ? styles.activeButton : ''}
-        onClick={() => handleChangeTimerMode(TimerMode.SHORT_BREAK)}
-      >
-        Short break
-      </button>
-      <button
-        className={timerMode === TimerMode.LONG_BREAK ? styles.activeButton : ''}
-        onClick={() => handleChangeTimerMode(TimerMode.LONG_BREAK)}
-      >
-        Long break
-      </button>
+    <div className={styles.container}>
+      {TIMER_MODES.map(({ mode, label }) => (
+        <button
+          key={mode}
+          onClick={() => handleChangeTimerMode(mode)}
+          className={getButtonClassName(mode)}
+          aria-pressed={timerMode === mode}
+        >
+          {label}
+        </button>
+      ))}
     </div>
   )
 }
