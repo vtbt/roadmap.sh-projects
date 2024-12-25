@@ -3,7 +3,7 @@ import './App.css'
 import { Header, Settings, TimerControls, TimerDisplay, TimerModes } from './components'
 import { useLocalStorage, useNotification } from './hooks'
 import { ButtonText, Settings as SettingsType, TimerMode } from './types/index'
-import { DEFAULT_SETTINGS } from './constants'
+import { DEFAULT_SETTINGS, getDurationFromSettings } from './constants'
 import useSound from 'use-sound'
 import timesUpSfx from '/sounds/timesUp.mp3'
 
@@ -130,18 +130,8 @@ function App() {
   ])
 
   useEffect(() => {
-    switch (timerMode) {
-      case TimerMode.POMODORO:
-        setSecondsLeft(settings.pomodoroDuration * 60)
-        break
-      case TimerMode.SHORT_BREAK:
-        setSecondsLeft(settings.shortBreakDuration * 60)
-        break
-      case TimerMode.LONG_BREAK:
-        setSecondsLeft(settings.longBreakDuration * 60)
-        break
-    }
-  }, [settings.longBreakDuration, settings.pomodoroDuration, settings.shortBreakDuration, timerMode])
+    setSecondsLeft(getDurationFromSettings(timerMode, settings) * 60)
+  }, [settings, settings.longBreakDuration, settings.pomodoroDuration, settings.shortBreakDuration, timerMode])
 
   return (
     <div className='container'>
