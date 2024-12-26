@@ -8,7 +8,7 @@ interface TimerControlsProps {
   setIsTimerRunning: React.Dispatch<React.SetStateAction<boolean>>
   secondsLeft: number
   volume: number
-  buttonText: string
+  buttonText: ButtonText
   setButtonText: React.Dispatch<React.SetStateAction<ButtonText>>
 }
 
@@ -31,7 +31,7 @@ const TimerControls: React.FC<TimerControlsProps> = ({
   })
   const handleClick = () => {
     if (secondsLeft === 0) {
-      return null
+      return
     }
 
     if (isTimerRunning) {
@@ -40,9 +40,7 @@ const TimerControls: React.FC<TimerControlsProps> = ({
       play()
     }
     setIsTimerRunning(!isTimerRunning)
-    setButtonText(
-      buttonText === ButtonText.START || buttonText === ButtonText.PAUSE ? ButtonText.PAUSE : ButtonText.RESUME
-    )
+    setButtonText([ButtonText.START, ButtonText.PAUSE].includes(buttonText) ? ButtonText.PAUSE : ButtonText.RESUME)
   }
 
   return <button onClick={handleClick}>{buttonText}</button>
