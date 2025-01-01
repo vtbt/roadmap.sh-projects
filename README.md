@@ -26,3 +26,4 @@ Skill-up with real-world projects
 18. https://roadmap.sh/projects/github-random-repo
 19. https://roadmap.sh/projects/reddit-client
 20. https://roadmap.sh/projects/temperature-converter
+21. https://roadmap.sh/projects/pomodoro-timer
