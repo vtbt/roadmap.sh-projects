@@ -1,17 +1,22 @@
-interface CloseIconAttributes {
-  className?: string
-  fill?: string
-  width?: string | number
-  height?: string | number
-}
-export const CloseIcon: React.FC<CloseIconAttributes> = ({
-  className = '',
-  fill = '#000',
+import { FC, SVGProps } from 'react'
+
+export const CloseIcon: FC<SVGProps<SVGSVGElement>> = ({
+  fill = 'currentColor',
   width = 16,
   height = 16,
-}: CloseIconAttributes) => {
+  ...props
+}: SVGProps<SVGSVGElement>) => {
   return (
-    <svg width={width} height={height} viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg' className={className}>
+    <svg
+      width={width}
+      height={height}
+      viewBox='0 0 16 16'
+      xmlns='http://www.w3.org/2000/svg'
+      aria-label={'Close'}
+      role='img'
+      focusable='false'
+      {...props}
+    >
       <path
         fill={fill}
         fillRule='evenodd'
